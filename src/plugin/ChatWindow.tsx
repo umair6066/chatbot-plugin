@@ -1,5 +1,4 @@
 import type { Message, ChatbotConfig } from './types';
-import type { ModelStatus } from './useChatbot';
 import { MessageList } from './MessageList';
 import { ChatInput } from './ChatInput';
 
@@ -7,13 +6,11 @@ interface Props {
   config: ChatbotConfig;
   messages: Message[];
   isTyping: boolean;
-  modelStatus: ModelStatus;
-  modelProgress: number;
   onSend: (message: string) => void;
   onClose: () => void;
 }
 
-export function ChatWindow({ config, messages, isTyping, modelStatus, modelProgress, onSend, onClose }: Props) {
+export function ChatWindow({ config, messages, isTyping, onSend, onClose }: Props) {
   return (
     <div className="cbw-window" role="dialog" aria-label="Chat window">
       <div className="cbw-header">
@@ -33,22 +30,7 @@ export function ChatWindow({ config, messages, isTyping, modelStatus, modelProgr
           </svg>
         </button>
       </div>
-
-      {modelStatus === 'loading' && (
-        <div className="cbw-ai-status">
-          <div className="cbw-ai-status-bar" style={{ width: `${modelProgress}%` }} />
-          <span className="cbw-ai-status-label">
-            Loading AI model{modelProgress > 0 ? ` ${modelProgress}%` : '…'}
-          </span>
-        </div>
-      )}
-      {modelStatus === 'error' && (
-        <div className="cbw-ai-status cbw-ai-status--error">
-          AI model failed to load
-        </div>
-      )}
-
-      <MessageList messages={messages} isTyping={isTyping} />
+      <MessageList messages={messages} isTyping={isTyping} onSuggestionClick={onSend} />
       <ChatInput onSend={onSend} disabled={isTyping} placeholder={config.placeholder} />
     </div>
   );

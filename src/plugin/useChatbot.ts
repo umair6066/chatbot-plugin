@@ -1,62 +1,61 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import type { Message, Product } from './types';
-import { getAIResponse, getModelStatus } from './aiResponses';
-import type { ChatTurn } from './aiResponses';
+import { getResponse, getDelay } from './mockResponses';
 
 let counter = 0;
-function nextId() {
-  return `msg-${++counter}`;
-}
+function nextId() { return `msg-${++counter}`; }
 
-function buildWelcome(text: string): Message {
-  return { id: nextId(), role: 'bot', content: text, timestamp: new Date() };
-}
-
-export type ModelStatus = 'idle' | 'loading' | 'ready' | 'error';
-
-// Keep last N turns so the prompt stays within token budget
-const MAX_HISTORY_TURNS = 8;
+const WELCOME_SUGGESTIONS = [
+  'What products do you have?',
+  "What's in stock?",
+  'Show me prices',
+  'Help me find something',
+];
 
 export function useChatbot(welcomeMessage?: string, products: Product[] = []) {
   const [messages, setMessages] = useState<Message[]>(() =>
-    welcomeMessage ? [buildWelcome(welcomeMessage)] : []
+    welcomeMessage
+      ? [{ id: nextId(), role: 'bot', content: welcomeMessage, timestamp: new Date(), suggestions: WELCOME_SUGGESTIONS }]
+      : []
   );
   const [isTyping, setIsTyping] = useState(false);
-  const [modelStatus, setModelStatus] = useState<ModelStatus>(getModelStatus);
-  const [modelProgress, setModelProgress] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Ref so sendMessage always sees latest messages without needing them as a dep
-  const messagesRef = useRef<Message[]>(messages);
-  messagesRef.current = messages;
+  // When products load (e.g. from a URL), refresh suggestions on the welcome message
+  useEffect(() => {
+    if (!products.length) return;
+    setMessages(prev => {
+      if (!prev.length || prev[0].role !== 'bot') return prev;
+      const productSuggestions = [
+        'What products do you have?',
+        "What's in stock?",
+        'Show me prices',
+        `Tell me about ${products[0].name}`,
+      ].slice(0, 4);
+      return [{ ...prev[0], suggestions: productSuggestions }, ...prev.slice(1)];
+    });
+  }, [products]);
 
-  const sendMessage = useCallback(async (content: string) => {
+  const sendMessage = useCallback((content: string) => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+
     const userMsg: Message = { id: nextId(), role: 'user', content, timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
     setIsTyping(true);
 
-    // Build conversation history for the AI: skip the welcome bot message, keep last N turns
-    const prior = messagesRef.current
-      .filter(m => !(m.role === 'bot' && m === messagesRef.current[0])) // skip welcome
-      .slice(-MAX_HISTORY_TURNS)
-      .map<ChatTurn>(m => ({ role: m.role === 'bot' ? 'assistant' : 'user', content: m.content }));
-
-    // Append the current user message
-    const history: ChatTurn[] = [...prior, { role: 'user', content }];
-
-    const response = await getAIResponse(history, products, (status, progress) => {
-      setModelStatus(status as ModelStatus);
-      if (progress !== undefined) setModelProgress(progress);
-    });
-
-    const botMsg: Message = {
-      id: nextId(),
-      role: 'bot',
-      content: response,
-      timestamp: new Date(),
-    };
-    setMessages(prev => [...prev, botMsg]);
-    setIsTyping(false);
+    timerRef.current = setTimeout(() => {
+      const { text, suggestions } = getResponse(content, products);
+      const botMsg: Message = {
+        id: nextId(),
+        role: 'bot',
+        content: text,
+        timestamp: new Date(),
+        suggestions,
+      };
+      setMessages(prev => [...prev, botMsg]);
+      setIsTyping(false);
+    }, getDelay());
   }, [products]);
 
-  return { messages, isTyping, sendMessage, modelStatus, modelProgress };
+  return { messages, isTyping, sendMessage };
 }

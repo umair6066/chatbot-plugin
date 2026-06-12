@@ -2,9 +2,10 @@ import type { Message } from './types';
 
 interface Props {
   message: Message;
+  onSuggestionClick?: (text: string) => void;
 }
 
-export function MessageItem({ message }: Props) {
+export function MessageItem({ message, onSuggestionClick }: Props) {
   const isBot = message.role === 'bot';
   const time = message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
@@ -15,9 +16,28 @@ export function MessageItem({ message }: Props) {
           <BotIcon />
         </div>
       )}
-      <div className="cbw-bubble">
-        <p className="cbw-bubble-text">{message.content}</p>
-        <span className="cbw-bubble-time">{time}</span>
+      <div className="cbw-message-body">
+        <div className="cbw-bubble">
+          <p className="cbw-bubble-text">{message.content}</p>
+          <span className="cbw-bubble-time">{time}</span>
+        </div>
+
+        {isBot && message.suggestions && message.suggestions.length > 0 && (
+          <div className="cbw-suggestions" role="list">
+            {message.suggestions.map(s => (
+              <button
+                key={s}
+                className={`cbw-suggestion-chip${onSuggestionClick ? '' : ' cbw-suggestion-chip--stale'}`}
+                onClick={() => onSuggestionClick?.(s)}
+                disabled={!onSuggestionClick}
+                role="listitem"
+                type="button"
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

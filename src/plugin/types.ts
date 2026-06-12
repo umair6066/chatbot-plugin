@@ -3,6 +3,7 @@ export interface Message {
   role: 'user' | 'bot';
   content: string;
   timestamp: Date;
+  suggestions?: string[];
 }
 
 export interface Product {
