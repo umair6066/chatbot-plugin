@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "build:widget": "tsc -b && vite build --config vite.widget.config.ts",
+    "dev:samples": "npm run build:widget && cp dist-widget/chatbot-widget.iife.js samples/chatbot-widget.iife.js && npx serve samples --listen 3000",
     "lint": "eslint .",
     "preview": "vite preview"
   },

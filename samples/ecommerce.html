@@ -202,27 +202,42 @@
 
   <footer>© 2025 ShopCo. Sample page for ChatbotWidget demo.</footer>
 
-  <!--
-    Script URL — currently hosted at GitHub Pages.
-    Replace with your own URL if you self-host the widget.
-  -->
-  <script src="https://umair6066.github.io/chatbot-plugin/chatbot-widget.iife.js"></script>
-
   <script>
-    ChatbotWidget.init({
-      title:          'ShopCo Support',
-      subtitle:       'Ask about products, prices & stock',
-      primaryColor:   '#6366f1',
-      welcomeMessage: 'Hi! 👋 Ask me about any of our products.',
-      position:       'bottom-right',
+    (function () {
+      var LOCAL  = './chatbot-widget.iife.js';
+      var REMOTE = 'https://umair6066.github.io/chatbot-plugin/chatbot-widget.iife.js';
 
-      products: [
-        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true },
-        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL layout', price: 89.99, category: 'Electronics', inStock: true },
-        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
-        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',       price: 34.99,  category: 'Furniture',    inStock: true },
-      ],
-    });
+      function init() {
+        ChatbotWidget.init({
+          title:          'ShopCo Support',
+          subtitle:       'Ask about products, prices & stock',
+          primaryColor:   '#6366f1',
+          welcomeMessage: 'Hi! 👋 Ask me about any of our products.',
+          position:       'bottom-right',
+
+          products: [
+            { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true },
+            { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL layout', price: 89.99, category: 'Electronics', inStock: true },
+            { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
+            { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',       price: 34.99,  category: 'Furniture',    inStock: true },
+          ],
+        });
+      }
+
+      var s = document.createElement('script');
+      s.src = LOCAL;
+      s.onload = init;
+      s.onerror = function () {
+        var s2 = document.createElement('script');
+        s2.src = REMOTE;
+        s2.onload = init;
+        s2.onerror = function () {
+          console.error('[ChatbotWidget] Could not load widget from local or remote URL.');
+        };
+        document.head.appendChild(s2);
+      };
+      document.head.appendChild(s);
+    })();
   </script>
 
 </body>
