@@ -3,6 +3,7 @@ import { ChatbotWidget } from './plugin';
 import './App.css';
 
 const PRODUCTS_URL = '/products.json';
+const SCRIPT_URL = 'https://umair6066.github.io/chatbot-plugin/chatbot-widget.iife.js';
 
 const PRESETS = [
   { label: 'Indigo', color: '#6366f1', title: 'Chat Support', subtitle: 'Typically replies instantly' },
@@ -10,6 +11,30 @@ const PRESETS = [
   { label: 'Rose', color: '#e11d48', title: 'Ask Us Anything', subtitle: 'Response time < 1 min' },
   { label: 'Amber', color: '#d97706', title: 'Sales Chat', subtitle: 'Ready to help' },
 ] as const;
+
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = () => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <button className="demo-copy-btn" onClick={copy} aria-label="Copy to clipboard">
+      {copied ? (
+        <>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Copied!
+        </>
+      ) : (
+        <>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </>
+      )}
+    </button>
+  );
+}
 
 export default function App() {
   const [preset, setPreset] = useState(0);
@@ -131,8 +156,13 @@ useEffect(() => {
         </section>
 
         <section className="demo-card">
-          <p className="demo-label">Embed snippet</p>
-          <pre className="demo-code">{`<script src="chatbot-widget.iife.js"></script>
+          <p className="demo-label">Add to any website</p>
+          <p className="demo-method-desc" style={{ marginBottom: 4 }}>
+            Paste these two tags before <code>&lt;/body&gt;</code>. No npm, no build step, no React needed.
+          </p>
+          <div className="demo-snippet-wrap">
+            <CopyButton text={`<script src="${SCRIPT_URL}"></script>\n<script>\n  ChatbotWidget.init({\n    title: "${active.title}",\n    subtitle: "${active.subtitle}",\n    primaryColor: "${active.color}",\n    welcomeMessage: "Hi there! 👋 How can I help?",\n    position: "${position}",\n    productsUrl: "https://yoursite.com/products.json",\n  });\n</script>`} />
+            <pre className="demo-code">{`<script src="${SCRIPT_URL}"></script>
 <script>
   ChatbotWidget.init({
     title: "${active.title}",
@@ -143,6 +173,8 @@ useEffect(() => {
     productsUrl: "https://yoursite.com/products.json",
   });
 </script>`}</pre>
+          </div>
+          <p className="demo-hint">The snippet above updates live as you change the colour theme and position controls.</p>
         </section>
 
         <section className="demo-card">

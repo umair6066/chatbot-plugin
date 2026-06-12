@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import { resolve } from 'path';
 
-// Standalone embeddable widget build — outputs a single IIFE JS file
-// with CSS inlined. Drop it on any page and call ChatbotWidget.init({...}).
+// Standalone embeddable widget build — single IIFE JS file, CSS injected at runtime.
+// Drop it on any page and call ChatbotWidget.init({...}).
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), cssInjectedByJsPlugin()],
   build: {
     outDir: 'dist-widget',
     lib: {
@@ -15,7 +16,6 @@ export default defineConfig({
       formats: ['iife'],
     },
     rollupOptions: {
-      // Bundle React into the output so the host page doesn't need it
       external: [],
     },
     cssCodeSplit: false,

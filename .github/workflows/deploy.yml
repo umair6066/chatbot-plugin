@@ -22,6 +22,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - run: npm run build:widget
+      - run: cp dist-widget/chatbot-widget.iife.js dist/chatbot-widget.iife.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
