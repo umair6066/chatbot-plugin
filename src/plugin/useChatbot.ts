@@ -1,6 +1,6 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import type { Message, Product } from './types';
-import { getMockResponse, getMockDelay } from './mockResponses';
+import { getAIResponse, getModelStatus } from './aiResponses';
 
 let counter = 0;
 function nextId() {
@@ -11,29 +11,35 @@ function buildWelcome(text: string): Message {
   return { id: nextId(), role: 'bot', content: text, timestamp: new Date() };
 }
 
+export type ModelStatus = 'idle' | 'loading' | 'ready' | 'error';
+
 export function useChatbot(welcomeMessage?: string, products: Product[] = []) {
   const [messages, setMessages] = useState<Message[]>(() =>
     welcomeMessage ? [buildWelcome(welcomeMessage)] : []
   );
   const [isTyping, setIsTyping] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [modelStatus, setModelStatus] = useState<ModelStatus>(getModelStatus);
+  const [modelProgress, setModelProgress] = useState(0);
 
-  const sendMessage = useCallback((content: string) => {
+  const sendMessage = useCallback(async (content: string) => {
     const userMsg: Message = { id: nextId(), role: 'user', content, timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
     setIsTyping(true);
 
-    timerRef.current = setTimeout(() => {
-      const botMsg: Message = {
-        id: nextId(),
-        role: 'bot',
-        content: getMockResponse(content, products),
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, botMsg]);
-      setIsTyping(false);
-    }, getMockDelay());
+    const response = await getAIResponse(content, products, (status, progress) => {
+      setModelStatus(status as ModelStatus);
+      if (progress !== undefined) setModelProgress(progress);
+    });
+
+    const botMsg: Message = {
+      id: nextId(),
+      role: 'bot',
+      content: response,
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, botMsg]);
+    setIsTyping(false);
   }, [products]);
 
-  return { messages, isTyping, sendMessage };
+  return { messages, isTyping, sendMessage, modelStatus, modelProgress };
 }

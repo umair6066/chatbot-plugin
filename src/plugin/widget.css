@@ -112,6 +112,39 @@
   flex-shrink: 0;
 }
 
+/* AI model loading indicator */
+.cbw-ai-status {
+  position: relative;
+  background: #f0f4ff;
+  border-bottom: 1px solid #e0e7ff;
+  padding: 6px 14px;
+  font-size: 12px;
+  color: #4f46e5;
+  text-align: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.cbw-ai-status-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: rgba(99, 102, 241, 0.12);
+  transition: width 0.3s ease;
+}
+
+.cbw-ai-status-label {
+  position: relative;
+  z-index: 1;
+}
+
+.cbw-ai-status--error {
+  background: #fff1f2;
+  border-bottom-color: #fecdd3;
+  color: #be123c;
+}
+
 .cbw-header-info {
   display: flex;
   align-items: center;

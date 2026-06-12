@@ -31,7 +31,7 @@ export function ChatbotWidget({
       .catch(err => console.warn('[ChatbotWidget]', err.message));
   }, [productsUrl]);
 
-  const { messages, isTyping, sendMessage } = useChatbot(welcomeMessage, products);
+  const { messages, isTyping, sendMessage, modelStatus, modelProgress } = useChatbot(welcomeMessage, products);
 
   return (
     <div
@@ -43,6 +43,8 @@ export function ChatbotWidget({
           config={{ ...config, welcomeMessage, primaryColor }}
           messages={messages}
           isTyping={isTyping}
+          modelStatus={modelStatus}
+          modelProgress={modelProgress}
           onSend={sendMessage}
           onClose={() => setIsOpen(false)}
         />
