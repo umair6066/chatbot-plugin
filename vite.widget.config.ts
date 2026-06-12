@@ -7,6 +7,9 @@ import { resolve } from 'path';
 // Drop it on any page and call ChatbotWidget.init({...}).
 export default defineConfig({
   plugins: [react(), cssInjectedByJsPlugin()],
+  define: {
+    'process.env.NODE_ENV': '"production"',
+  },
   build: {
     outDir: 'dist-widget',
     lib: {

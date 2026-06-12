@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic — ChatbotWidget Sample</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 80px auto; padding: 0 24px; color: #374151; }
+    h1   { font-size: 28px; color: #111827; margin: 0 0 12px; }
+    p    { line-height: 1.65; margin: 0 0 12px; }
+  </style>
+</head>
+<body>
+
+  <h1>Basic setup</h1>
+  <p>The chat button appears in the bottom-right corner. Click it to open.</p>
+  <p>Minimum configuration — just a title and a welcome message.</p>
+
+  <!-- Widget script — bundled locally so this file works anywhere, offline too -->
+  <script src="./chatbot-widget.iife.js"></script>
+<script>
+  ChatbotWidget.init({
+    title: "Chat Support",
+    subtitle: "Typically replies instantly",
+    primaryColor: "#6366f1",
+    welcomeMessage: "Hi there! 👋 How can I help?",
+    position: "bottom-right",
+ products: [
+        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true },
+        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL layout', price: 89.99, category: 'Electronics', inStock: true },
+        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm',   price: 599.00, category: 'Furniture',    inStock: false },
+        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',         price: 34.99,  category: 'Furniture',    inStock: true },
+      ],  });
+</script>
+
+</body>
+</html>
