@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { ChatbotWidget } from './plugin';
 import './App.css';
 
-const PRODUCTS_URL = '/products.json';
+// import.meta.env.BASE_URL = '/chatbot-plugin/' on GitHub Pages, '/' locally
+const PRODUCTS_URL = `${import.meta.env.BASE_URL}products.json`;
 const SCRIPT_URL = 'https://umair6066.github.io/chatbot-plugin/chatbot-widget.iife.js';
 
 const PRESETS = [

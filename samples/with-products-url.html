@@ -10,7 +10,8 @@
     p    { line-height: 1.65; margin: 0 0 12px; }
     code { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
     .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin-bottom: 12px; }
-    .warn { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 14px 16px; font-size: 14px; }
+    .info { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 14px 16px; font-size: 14px; }
+    #status { font-size: 13px; color: #6b7280; margin-top: 8px; }
   </style>
 </head>
 <body>
@@ -23,12 +24,13 @@
 
   <p class="tip">Try asking: <strong>"what products do you have?"</strong> · <strong>"show prices"</strong> · <strong>"what's in stock?"</strong></p>
 
-  <p class="warn">
-    ⚠️ <strong>Requires a server.</strong> Browsers block file fetches when opening HTML directly
-    from disk (<code>file://</code>). Run a local server first:<br><br>
-    <code>npx serve samples/</code>&nbsp; or &nbsp;<code>python3 -m http.server 8080</code><br><br>
-    Then open <code>http://localhost:8080/with-products-url.html</code>
+  <p class="info">
+    This page detects whether it is running on a server or opened directly from disk.<br><br>
+    • <strong>On a server</strong> — loads products from <code>./products.json</code> via URL.<br>
+    • <strong>Opened as a file</strong> — uses an inline fallback array automatically
+      (browsers block <code>fetch()</code> on <code>file://</code>).
   </p>
+  <p id="status"></p>
 
   <!--
     Script URL — currently hosted at GitHub Pages.
@@ -37,16 +39,40 @@
   <script src="https://umair6066.github.io/chatbot-plugin/chatbot-widget.iife.js"></script>
 
   <script>
-    ChatbotWidget.init({
-      title:          'Shop Assistant',
-      subtitle:       'Ask me about our products',
-      primaryColor:   '#6366f1',
-      welcomeMessage: 'Hi! Ask me anything about our products.',
+    // Fallback inline products used when the page is opened from disk (file://)
+    var FALLBACK_PRODUCTS = [
+      { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true },
+      { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL layout', price: 89.99, category: 'Electronics', inStock: true },
+      { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
+      { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',       price: 34.99,  category: 'Furniture',    inStock: true },
+    ];
 
-      // Path to your products JSON file.
-      // Can be a relative path (same server) or a full URL (different server/CDN).
-      productsUrl: './products.json',
-    });
+    var isFileProtocol = location.protocol === 'file:';
+    var statusEl = document.getElementById('status');
+
+    if (isFileProtocol) {
+      statusEl.textContent = '⚠ Running from disk — using inline fallback products.';
+
+      ChatbotWidget.init({
+        title:          'Shop Assistant',
+        subtitle:       'Ask me about our products',
+        primaryColor:   '#6366f1',
+        welcomeMessage: 'Hi! Ask me anything about our products.',
+        products:       FALLBACK_PRODUCTS,
+      });
+    } else {
+      statusEl.textContent = '✓ Running on a server — loading products from ./products.json';
+
+      ChatbotWidget.init({
+        title:          'Shop Assistant',
+        subtitle:       'Ask me about our products',
+        primaryColor:   '#6366f1',
+        welcomeMessage: 'Hi! Ask me anything about our products.',
+
+        // Replace this with any URL — relative path or full https://
+        productsUrl: './products.json',
+      });
+    }
   </script>
 
 </body>
