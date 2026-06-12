@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic — ChatbotWidget Sample</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 80px auto; padding: 0 24px; color: #374151; }
+    h1   { font-size: 28px; color: #111827; margin: 0 0 12px; }
+    p    { line-height: 1.65; margin: 0 0 12px; }
+  </style>
+</head>
+<body>
+
+  <h1>Basic setup</h1>
+  <p>The chat button is in the bottom-right corner. Click it to open.</p>
+  <p>This is the minimum configuration — just a title and a welcome message.</p>
+
+  <!-- ① Load the widget script -->
+  <!--
+    Currently hosted at GitHub Pages. If you deploy the widget on your own
+    server or CDN, replace this URL with your own path to chatbot-widget.iife.js
+  -->
+  <script src="https://umair6066.github.io/chatbot-plugin/chatbot-widget.iife.js"></script>
+
+  <!-- ② Initialise -->
+  <script>
+    ChatbotWidget.init({
+      title:          'Support Chat',
+      welcomeMessage: 'Hi there! How can I help you today?',
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products URL — ChatbotWidget Sample</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 80px auto; padding: 0 24px; color: #374151; }
+    h1   { font-size: 28px; color: #111827; margin: 0 0 12px; }
+    p    { line-height: 1.65; margin: 0 0 12px; }
+    code { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
+    .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin-bottom: 12px; }
+    .warn { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 14px 16px; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <h1>Products — JSON file URL</h1>
+  <p>
+    Pass a <code>productsUrl</code> and the widget fetches the file at runtime.
+    Update <code>products.json</code> anytime — no code change needed.
+  </p>
+
+  <p class="tip">Try asking: <strong>"what products do you have?"</strong> · <strong>"show prices"</strong> · <strong>"what's in stock?"</strong></p>
+
+  <p class="warn">
+    ⚠️ <strong>Requires a server.</strong> Browsers block file fetches when opening HTML directly
+    from disk (<code>file://</code>). Run a local server first:<br><br>
+    <code>npx serve samples/</code>&nbsp; or &nbsp;<code>python3 -m http.server 8080</code><br><br>
+    Then open <code>http://localhost:8080/with-products-url.html</code>
+  </p>
+
+  <!--
+    Script URL — currently hosted at GitHub Pages.
+    Replace with your own URL if you self-host the widget.
+  -->
+  <script src="https://umair6066.github.io/chatbot-plugin/chatbot-widget.iife.js"></script>
+
+  <script>
+    ChatbotWidget.init({
+      title:          'Shop Assistant',
+      subtitle:       'Ask me about our products',
+      primaryColor:   '#6366f1',
+      welcomeMessage: 'Hi! Ask me anything about our products.',
+
+      // Path to your products JSON file.
+      // Can be a relative path (same server) or a full URL (different server/CDN).
+      productsUrl: './products.json',
+    });
+  </script>
+
+</body>
+</html>

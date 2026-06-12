@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopCo — ChatbotWidget Sample</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f9fafb;
+      color: #374151;
+    }
+
+    /* Nav */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo { font-size: 20px; font-weight: 800; color: #111827; letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { text-decoration: none; color: #6b7280; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover { color: #111827; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: #fff;
+      text-align: center;
+      padding: 72px 24px;
+    }
+    .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+    .hero p  { font-size: 18px; opacity: 0.85; margin-bottom: 28px; }
+    .hero-btn {
+      display: inline-block;
+      background: #fff;
+      color: #6366f1;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    /* Products */
+    .section { max-width: 1100px; margin: 0 auto; padding: 56px 24px; }
+    .section-title { font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 24px; }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .product-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+    .product-img {
+      height: 160px;
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+
+    .product-body { padding: 16px; }
+    .product-name { font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 4px; }
+    .product-desc { font-size: 13px; color: #6b7280; line-height: 1.5; margin-bottom: 12px; }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-price { font-size: 17px; font-weight: 700; color: #111827; }
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 99px;
+    }
+    .badge-in  { background: #dcfce7; color: #166534; }
+    .badge-out { background: #fee2e2; color: #991b1b; }
+
+    .add-btn {
+      margin-top: 12px;
+      width: 100%;
+      padding: 9px;
+      border: none;
+      border-radius: 8px;
+      background: #6366f1;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .add-btn:hover:not(:disabled) { background: #4f46e5; }
+    .add-btn:disabled { background: #e5e7eb; color: #9ca3af; cursor: not-allowed; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 32px;
+      font-size: 13px;
+      color: #9ca3af;
+      border-top: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-logo">ShopCo</span>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <h1>Quality goods, fast delivery</h1>
+    <p>Browse our catalog and chat with us if you have questions.</p>
+    <a href="#products" class="hero-btn">Shop now</a>
+  </div>
+
+  <div class="section" id="products">
+    <h2 class="section-title">Our Products</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-img">🎧</div>
+        <div class="product-body">
+          <p class="product-name">Wireless Headphones</p>
+          <p class="product-desc">Premium noise-cancelling audio, 30h battery life.</p>
+          <div class="product-footer">
+            <span class="product-price">$149.99</span>
+            <span class="badge badge-in">In stock</span>
+          </div>
+          <button class="add-btn">Add to cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">⌨️</div>
+        <div class="product-body">
+          <p class="product-name">Mechanical Keyboard</p>
+          <p class="product-desc">Tactile switches, RGB backlit, compact TKL layout.</p>
+          <div class="product-footer">
+            <span class="product-price">$89.99</span>
+            <span class="badge badge-in">In stock</span>
+          </div>
+          <button class="add-btn">Add to cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">🪑</div>
+        <div class="product-body">
+          <p class="product-name">Standing Desk</p>
+          <p class="product-desc">Motorised height-adjustable, 120×60 cm surface.</p>
+          <div class="product-footer">
+            <span class="product-price">$599.00</span>
+            <span class="badge badge-out">Out of stock</span>
+          </div>
+          <button class="add-btn" disabled>Out of stock</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">💡</div>
+        <div class="product-body">
+          <p class="product-name">Desk Lamp</p>
+          <p class="product-desc">LED, adjustable colour temperature 2700–6500K.</p>
+          <div class="product-footer">
+            <span class="product-price">$34.99</span>
+            <span class="badge badge-in">In stock</span>
+          </div>
+          <button class="add-btn">Add to cart</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>© 2025 ShopCo. Sample page for ChatbotWidget demo.</footer>
+
+  <!--
+    Script URL — currently hosted at GitHub Pages.
+    Replace with your own URL if you self-host the widget.
+  -->
+  <script src="https://umair6066.github.io/chatbot-plugin/chatbot-widget.iife.js"></script>
+
+  <script>
+    ChatbotWidget.init({
+      title:          'ShopCo Support',
+      subtitle:       'Ask about products, prices & stock',
+      primaryColor:   '#6366f1',
+      welcomeMessage: 'Hi! 👋 Ask me about any of our products.',
+      position:       'bottom-right',
+
+      products: [
+        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true },
+        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL layout', price: 89.99, category: 'Electronics', inStock: true },
+        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
+        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',       price: 34.99,  category: 'Furniture',    inStock: true },
+      ],
+    });
+  </script>
+
+</body>
+</html>
