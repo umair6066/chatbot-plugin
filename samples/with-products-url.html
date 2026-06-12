@@ -9,80 +9,57 @@
     h1   { font-size: 28px; color: #111827; margin: 0 0 12px; }
     p    { line-height: 1.65; margin: 0 0 12px; }
     code { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
-    .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin-bottom: 12px; }
-    .info { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 14px 16px; font-size: 14px; }
+    .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; }
+    .warn { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 14px 16px; font-size: 14px; }
     #status { font-size: 13px; color: #6b7280; margin-top: 8px; }
   </style>
 </head>
 <body>
 
   <h1>Products — JSON file URL</h1>
-  <p>
-    Pass a <code>productsUrl</code> and the widget fetches the file at runtime.
-    Update <code>products.json</code> anytime — no code change needed.
-  </p>
+  <p>Pass a <code>productsUrl</code> and the widget fetches the file at runtime. Update <code>products.json</code> anytime — no code change needed.</p>
 
   <p class="tip">Try asking: <strong>"what products do you have?"</strong> · <strong>"show prices"</strong> · <strong>"what's in stock?"</strong></p>
 
-  <p class="info">
-    This page detects whether it is running on a server or opened directly from disk.<br><br>
-    • <strong>On a server</strong> — loads products from <code>./products.json</code> via URL.<br>
-    • <strong>Opened as a file</strong> — uses an inline fallback array automatically
-      (browsers block <code>fetch()</code> on <code>file://</code>).
+  <p class="warn">
+    ⚠ <strong>Requires a server</strong> for the URL fetch to work.
+    Browsers block <code>fetch()</code> when a file is opened from disk.<br><br>
+    Run: <code>npx serve samples/</code> then open <code>http://localhost:3000/with-products-url.html</code><br><br>
+    Opening from disk still shows the chat widget — it just falls back to the inline products below.
   </p>
   <p id="status"></p>
 
+  <script src="./chatbot-widget.iife.js"></script>
   <script>
-    var LOCAL  = './chatbot-widget.iife.js';
-    var REMOTE = 'https://umair6066.github.io/chatbot-plugin/chatbot-widget.iife.js';
-
-    // Fallback inline products used when the page is opened from disk (file://)
-    var FALLBACK_PRODUCTS = [
-      { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true },
-      { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL layout', price: 89.99, category: 'Electronics', inStock: true },
-      { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
-      { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',       price: 34.99,  category: 'Furniture',    inStock: true },
-    ];
-
     var isFileProtocol = location.protocol === 'file:';
     var statusEl = document.getElementById('status');
 
-    function init() {
-      if (isFileProtocol) {
-        statusEl.textContent = '⚠ Running from disk — using inline fallback products.';
-        ChatbotWidget.init({
-          title:          'Shop Assistant',
-          subtitle:       'Ask me about our products',
-          primaryColor:   '#6366f1',
-          welcomeMessage: 'Hi! Ask me anything about our products.',
-          products:       FALLBACK_PRODUCTS,
-        });
-      } else {
-        statusEl.textContent = '✓ Running on a server — loading products from ./products.json';
-        ChatbotWidget.init({
-          title:          'Shop Assistant',
-          subtitle:       'Ask me about our products',
-          primaryColor:   '#6366f1',
-          welcomeMessage: 'Hi! Ask me anything about our products.',
-          // Replace with any URL — relative path or full https://
-          productsUrl: './products.json',
-        });
-      }
+    if (isFileProtocol) {
+      statusEl.textContent = '⚠ Opened from disk — using inline fallback products.';
+      ChatbotWidget.init({
+        title:          'Shop Assistant',
+        subtitle:       'Ask me about our products',
+        primaryColor:   '#6366f1',
+        welcomeMessage: 'Hi! Ask me anything about our products.',
+        // Inline fallback — used when file:// blocks fetch
+        products: [
+          { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true },
+          { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL layout', price: 89.99, category: 'Electronics', inStock: true },
+          { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm',   price: 599.00, category: 'Furniture',    inStock: false },
+          { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',         price: 34.99,  category: 'Furniture',    inStock: true },
+        ],
+      });
+    } else {
+      statusEl.textContent = '✓ Running on a server — loading products from ./products.json';
+      ChatbotWidget.init({
+        title:          'Shop Assistant',
+        subtitle:       'Ask me about our products',
+        primaryColor:   '#6366f1',
+        welcomeMessage: 'Hi! Ask me anything about our products.',
+        // Replace with any relative or absolute URL to your products JSON
+        productsUrl: './products.json',
+      });
     }
-
-    var s = document.createElement('script');
-    s.src = LOCAL;
-    s.onload = init;
-    s.onerror = function () {
-      var s2 = document.createElement('script');
-      s2.src = REMOTE;
-      s2.onload = init;
-      s2.onerror = function () {
-        console.error('[ChatbotWidget] Could not load widget from local or remote URL.');
-      };
-      document.head.appendChild(s2);
-    };
-    document.head.appendChild(s);
   </script>
 
 </body>
