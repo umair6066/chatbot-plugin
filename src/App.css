@@ -1,0 +1,371 @@
+/* Demo page styles */
+
+.demo-root {
+  min-height: 100vh;
+  background: #f8f9fb;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.demo-header {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.demo-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+}
+
+.demo-badge {
+  font-size: 12px;
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-weight: 500;
+}
+
+.demo-main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 24px 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.demo-hero {
+  padding-bottom: 8px;
+}
+
+.demo-h1 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.demo-lead {
+  font-size: 16px;
+  color: #4b5563;
+  line-height: 1.65;
+}
+
+.demo-lead code {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 14px;
+  font-family: ui-monospace, Consolas, monospace;
+  color: #374151;
+}
+
+.demo-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.demo-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.demo-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.demo-presets {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.demo-preset {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.demo-preset:hover {
+  border-color: #d1d5db;
+  background: #f9fafb;
+}
+
+.demo-preset--active {
+  border-color: var(--c, #6366f1);
+  background: color-mix(in srgb, var(--c, #6366f1) 8%, white);
+  color: var(--c, #6366f1);
+}
+
+.demo-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--c, #6366f1);
+  flex-shrink: 0;
+}
+
+.demo-toggle {
+  display: flex;
+  gap: 0;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.demo-toggle-btn {
+  padding: 7px 16px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  color: #6b7280;
+  transition: background 0.15s, color 0.15s;
+}
+
+.demo-toggle-btn:first-child {
+  border-right: 1px solid #e5e7eb;
+}
+
+.demo-toggle-btn:hover {
+  background: #f9fafb;
+}
+
+.demo-toggle-btn--active {
+  background: #111827;
+  color: #fff;
+}
+
+.demo-code {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  padding: 18px 20px;
+  border-radius: 10px;
+  font-family: ui-monospace, Consolas, 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin: 0;
+  white-space: pre;
+  tab-size: 2;
+}
+
+.demo-method {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.demo-method:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.demo-method-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.demo-method-tag {
+  font-size: 11px;
+  font-weight: 500;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+
+.demo-method-desc {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.demo-method code {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 12px;
+  font-family: ui-monospace, Consolas, monospace;
+  color: #374151;
+}
+
+.demo-error {
+  font-size: 13px;
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 0;
+}
+
+.demo-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.demo-product-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #fafafa;
+}
+
+.demo-product-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.demo-product-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.demo-stock {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 99px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.demo-stock--in {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.demo-stock--out {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.demo-product-desc {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.demo-product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.demo-product-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.demo-product-cat {
+  font-size: 11px;
+  color: #9ca3af;
+  background: #f3f4f6;
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+.demo-hint {
+  font-size: 13px;
+  color: #6b7280;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.demo-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.demo-features li {
+  font-size: 14px;
+  color: #374151;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+.demo-check {
+  color: #10b981;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .demo-header {
+    padding: 0 16px;
+  }
+  .demo-h1 {
+    font-size: 28px;
+  }
+  .demo-main {
+    padding: 32px 16px 100px;
+  }
+}

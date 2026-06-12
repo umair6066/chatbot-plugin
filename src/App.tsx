@@ -1,0 +1,179 @@
+import { useState } from 'react';
+import { ChatbotWidget } from './plugin';
+import './App.css';
+
+const PRODUCTS_URL = '/products.json';
+
+const PRESETS = [
+  { label: 'Indigo', color: '#6366f1', title: 'Chat Support', subtitle: 'Typically replies instantly' },
+  { label: 'Teal', color: '#0d9488', title: 'Live Help', subtitle: 'Online now' },
+  { label: 'Rose', color: '#e11d48', title: 'Ask Us Anything', subtitle: 'Response time < 1 min' },
+  { label: 'Amber', color: '#d97706', title: 'Sales Chat', subtitle: 'Ready to help' },
+] as const;
+
+export default function App() {
+  const [preset, setPreset] = useState(0);
+  const [position, setPosition] = useState<'bottom-right' | 'bottom-left'>('bottom-right');
+  const active = PRESETS[preset];
+
+  return (
+    <div className="demo-root">
+      <header className="demo-header">
+        <div className="demo-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          ChatbotWidget
+        </div>
+        <span className="demo-badge">v1.0.0</span>
+      </header>
+
+      <main className="demo-main">
+        <section className="demo-hero">
+          <h1 className="demo-h1">Embeddable Chat Widget</h1>
+          <p className="demo-lead">
+            Lightweight and fully customisable. Add it to any site with a single{' '}
+            <code>&lt;script&gt;</code> tag. Try it with the floating button →
+          </p>
+        </section>
+
+        <section className="demo-card">
+          <div className="demo-control-group">
+            <p className="demo-label">Color theme</p>
+            <div className="demo-presets">
+              {PRESETS.map((p, i) => (
+                <button
+                  key={p.label}
+                  className={`demo-preset${i === preset ? ' demo-preset--active' : ''}`}
+                  style={{ '--c': p.color } as React.CSSProperties}
+                  onClick={() => setPreset(i)}
+                >
+                  <span className="demo-swatch" />
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="demo-control-group">
+            <p className="demo-label">Position</p>
+            <div className="demo-toggle">
+              {(['bottom-right', 'bottom-left'] as const).map(p => (
+                <button
+                  key={p}
+                  className={`demo-toggle-btn${position === p ? ' demo-toggle-btn--active' : ''}`}
+                  onClick={() => setPosition(p)}
+                >
+                  {p === 'bottom-right' ? 'Bottom Right' : 'Bottom Left'}
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="demo-card">
+          <p className="demo-label">Passing products to the widget</p>
+
+          <div className="demo-method">
+            <p className="demo-method-title">1 — JSON file URL <span className="demo-method-tag">recommended</span></p>
+            <pre className="demo-code">{`<ChatbotWidget productsUrl="/products.json" />`}</pre>
+            <p className="demo-method-desc">Widget fetches the file at runtime. Update the file anytime — no code change needed.</p>
+          </div>
+
+          <div className="demo-method">
+            <p className="demo-method-title">2 — Inline array</p>
+            <pre className="demo-code">{`<ChatbotWidget
+  products={[
+    { name: "Wireless Headphones", price: 149.99, inStock: true },
+    { name: "Standing Desk",       price: 599.00, inStock: false },
+  ]}
+/>`}</pre>
+            <p className="demo-method-desc">Good for small or static catalogs where the data is already in your app.</p>
+          </div>
+
+          <div className="demo-method">
+            <p className="demo-method-title">3 — Fetched by your page, shared with the widget</p>
+            <pre className="demo-code">{`const [products, setProducts] = useState([]);
+
+useEffect(() => {
+  fetch("/products.json")
+    .then(r => r.json())
+    .then(setProducts);
+}, []);
+
+// same data drives your page AND the chatbot
+<ProductGrid products={products} />
+<ChatbotWidget products={products} />`}</pre>
+            <p className="demo-method-desc">Fetch once in your app, render your own product list, and pass the same array to the widget — no double request.</p>
+          </div>
+
+          <div className="demo-method">
+            <p className="demo-method-title">4 — Embed script (plain HTML)</p>
+            <pre className="demo-code">{`ChatbotWidget.init({
+  productsUrl: "https://yoursite.com/products.json",
+});`}</pre>
+            <p className="demo-method-desc">For non-React pages. The widget fetches the URL itself.</p>
+          </div>
+
+          <div className="demo-method">
+            <p className="demo-method-title">Product shape — only <code>name</code> is required</p>
+            <pre className="demo-code">{`{
+  name:        string      // required
+  description: string      // shown in detail card
+  price:       number | string  // 29.99 or "Contact us"
+  category:    string      // used for category listing
+  inStock:     boolean     // shown in stock queries
+  // any extra fields are also shown in the detail card
+}`}</pre>
+          </div>
+
+          <p className="demo-hint">Try the chat now: "what products do you have?" · "tell me about the keyboard" · "what's in stock?" · "show prices"</p>
+        </section>
+
+        <section className="demo-card">
+          <p className="demo-label">Embed snippet</p>
+          <pre className="demo-code">{`<script src="chatbot-widget.iife.js"></script>
+<script>
+  ChatbotWidget.init({
+    title: "${active.title}",
+    subtitle: "${active.subtitle}",
+    primaryColor: "${active.color}",
+    welcomeMessage: "Hi there! 👋 How can I help?",
+    position: "${position}",
+    productsUrl: "https://yoursite.com/products.json",
+  });
+</script>`}</pre>
+        </section>
+
+        <section className="demo-card">
+          <p className="demo-label">Features</p>
+          <ul className="demo-features">
+            {[
+              'Floating trigger button with open/close animation',
+              'Typing indicator with animated dots',
+              'Auto-scroll to latest message',
+              'Textarea auto-resize — Shift+Enter for newlines',
+              'Conversation preserved across open/close',
+              'Configurable title, subtitle, colour, position',
+              'Mobile responsive (< 480 px)',
+              'Keyboard accessible with ARIA roles & labels',
+              'Zero host-page CSS conflicts (cbw- prefix)',
+            ].map(f => (
+              <li key={f}><span className="demo-check">✓</span>{f}</li>
+            ))}
+          </ul>
+        </section>
+      </main>
+
+      <ChatbotWidget
+        key={`${preset}-${position}`}
+        title={active.title}
+        subtitle={active.subtitle}
+        primaryColor={active.color}
+        welcomeMessage="Hi there! 👋 Ask me about our products or anything else!"
+        position={position}
+        productsUrl={PRODUCTS_URL}
+      />
+    </div>
+  );
+}
