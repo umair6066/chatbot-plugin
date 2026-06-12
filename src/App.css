@@ -323,6 +323,47 @@
   border-radius: 99px;
 }
 
+.demo-script-url-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.demo-script-url-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+}
+
+.demo-script-url {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 13px;
+  color: #111827;
+  word-break: break-all;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.demo-script-url-note {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.55;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 8px;
+  margin-top: 2px;
+}
+
+.demo-script-url-note strong {
+  color: #374151;
+}
+
 .demo-snippet-wrap {
   position: relative;
 }

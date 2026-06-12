@@ -157,9 +157,18 @@ useEffect(() => {
 
         <section className="demo-card">
           <p className="demo-label">Add to any website</p>
-          <p className="demo-method-desc" style={{ marginBottom: 4 }}>
+          <p className="demo-method-desc">
             Paste these two tags before <code>&lt;/body&gt;</code>. No npm, no build step, no React needed.
           </p>
+
+          <div className="demo-script-url-box">
+            <span className="demo-script-url-label">Script URL</span>
+            <code className="demo-script-url">{SCRIPT_URL}</code>
+            <span className="demo-script-url-note">
+              ⓘ This is the current hosted location (GitHub Pages). If you deploy the widget on your own server or CDN, replace this URL with your own path to <strong>chatbot-widget.iife.js</strong>.
+            </span>
+          </div>
+
           <div className="demo-snippet-wrap">
             <CopyButton text={`<script src="${SCRIPT_URL}"></script>\n<script>\n  ChatbotWidget.init({\n    title: "${active.title}",\n    subtitle: "${active.subtitle}",\n    primaryColor: "${active.color}",\n    welcomeMessage: "Hi there! 👋 How can I help?",\n    position: "${position}",\n    productsUrl: "https://yoursite.com/products.json",\n  });\n</script>`} />
             <pre className="demo-code">{`<script src="${SCRIPT_URL}"></script>
@@ -174,7 +183,7 @@ useEffect(() => {
   });
 </script>`}</pre>
           </div>
-          <p className="demo-hint">The snippet above updates live as you change the colour theme and position controls.</p>
+          <p className="demo-hint">The snippet updates live as you change the colour theme and position controls above.</p>
         </section>
 
         <section className="demo-card">
