@@ -5,19 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Inline Products — ChatbotWidget Sample</title>
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 80px auto; padding: 0 24px; color: #374151; }
-    h1   { font-size: 28px; color: #111827; margin: 0 0 12px; }
+    body  { font-family: system-ui, sans-serif; max-width: 680px; margin: 60px auto; padding: 0 24px; color: #374151; }
+    h1   { font-size: 26px; color: #111827; margin: 0 0 8px; }
+    h2   { font-size: 16px; color: #111827; margin: 32px 0 10px; }
     p    { line-height: 1.65; margin: 0 0 12px; }
     code { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
-    .tip { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; }
+    pre  { background: #1e293b; color: #e2e8f0; border-radius: 10px; padding: 18px 20px; font-size: 13px; line-height: 1.7; overflow-x: auto; }
+    .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin: 0 0 20px; }
+
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 6px; }
+    .chip {
+      display: inline-block; background: #fff;
+      border: 1.5px solid #0d9488; color: #0d9488;
+      border-radius: 99px; padding: 5px 13px; font-size: 13px; font-family: inherit;
+    }
+    .note { font-size: 12px; color: #9ca3af; margin: 0; }
   </style>
 </head>
 <body>
 
   <h1>Products — inline array</h1>
-  <p>Pass products directly inside <code>ChatbotWidget.init()</code>. Good when the data is small or already hardcoded.</p>
-  <p class="tip">Try asking: <strong>"what products do you have?"</strong> · <strong>"tell me about the headphones"</strong> · <strong>"what's in stock?"</strong> · <strong>"show prices"</strong></p>
+  <p>Pass products directly inside <code>ChatbotWidget.init()</code>. Good when the data is small or already available in your page.</p>
 
+  <div class="tip">
+    <strong>Try asking:</strong> "what products do you have?" &nbsp;·&nbsp;
+    "tell me about the headphones" &nbsp;·&nbsp; "what's in stock?" &nbsp;·&nbsp;
+    "show prices" &nbsp;·&nbsp; "cheapest option" &nbsp;·&nbsp; "show electronics"
+  </div>
+
+  <!-- ── Suggestions ─────────────────────────────────────────────────── -->
+  <h2>Auto-generated suggestion chips</h2>
+  <p>
+    Because products are passed inline, the widget immediately builds product-aware chips for
+    the welcome message. After each reply you also get context-specific follow-up chips.
+  </p>
+  <div class="chip-row">
+    <span class="chip">What products do you have?</span>
+    <span class="chip">What's in stock?</span>
+    <span class="chip">Show me prices</span>
+    <span class="chip">Tell me about Wireless Headphones</span>
+  </div>
+  <p class="note">These are generated automatically — no extra config needed.</p>
+
+  <h2>Custom suggestions example</h2>
+  <pre>&lt;script&gt;
+  ChatbotWidget.init({
+    products: [ /* your catalog */ ],
+    suggestions: [
+      "What products do you have?",
+      "What's your cheapest product?",
+      "Show Electronics",
+      "What's out of stock?",
+    ],
+  });
+&lt;/script&gt;</pre>
+
+  <!-- Widget script -->
   <script src="./chatbot-widget.iife.js"></script>
   <script>
     ChatbotWidget.init({
@@ -25,14 +68,24 @@
       subtitle:       'Ask me about our products',
       primaryColor:   '#0d9488',
       welcomeMessage: 'Hi! Ask me anything about our products.',
+      position:       'bottom-right',
 
-      // Edit this array to match your own catalog
+      // Products — edit this array to match your own catalog
       products: [
-        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true },
-        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL layout', price: 89.99, category: 'Electronics', inStock: true },
-        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm',   price: 599.00, category: 'Furniture',    inStock: false },
-        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',         price: 34.99,  category: 'Furniture',    inStock: true },
+        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true  },
+        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL',     price: 89.99,  category: 'Electronics', inStock: true  },
+        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
+        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',      price: 34.99,  category: 'Furniture',    inStock: true  },
       ],
+
+      // Suggestions are auto-generated from products above.
+      // Uncomment to override with your own chips:
+      // suggestions: [
+      //   "What products do you have?",
+      //   "What's your cheapest product?",
+      //   "Show Electronics",
+      //   "What's out of stock?",
+      // ],
     });
   </script>
 

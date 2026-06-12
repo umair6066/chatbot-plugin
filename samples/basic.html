@@ -5,23 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Basic — ChatbotWidget Sample</title>
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 80px auto; padding: 0 24px; color: #374151; }
-    h1   { font-size: 28px; color: #111827; margin: 0 0 12px; }
+    body  { font-family: system-ui, sans-serif; max-width: 680px; margin: 60px auto; padding: 0 24px; color: #374151; }
+    h1   { font-size: 26px; color: #111827; margin: 0 0 8px; }
+    h2   { font-size: 16px; color: #111827; margin: 32px 0 10px; }
     p    { line-height: 1.65; margin: 0 0 12px; }
+    code { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
+    pre  { background: #1e293b; color: #e2e8f0; border-radius: 10px; padding: 18px 20px; font-size: 13px; line-height: 1.7; overflow-x: auto; }
+    .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin: 0 0 20px; }
+
+    /* suggestion chip preview */
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 6px; }
+    .chip {
+      display: inline-block;
+      background: #fff;
+      border: 1.5px solid #6366f1;
+      color: #6366f1;
+      border-radius: 99px;
+      padding: 5px 13px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .note { font-size: 12px; color: #9ca3af; margin: 0; }
   </style>
 </head>
 <body>
 
   <h1>Basic setup</h1>
-  <p>The chat button appears in the bottom-right corner. Click it to open.</p>
-  <p>Minimum configuration — just a title and a welcome message.</p>
+  <p>The chat button appears in the bottom-right corner. Click it to open the widget.</p>
 
-  <!-- Widget script — bundled locally so this file works anywhere, offline too -->
+  <div class="tip">
+    <strong>Try typing:</strong> "what products do you have?" &nbsp;·&nbsp;
+    "tell me about the headphones" &nbsp;·&nbsp; "what's cheapest?" &nbsp;·&nbsp;
+    "wireles headfone" <em>(typo — it still matches!)</em>
+  </div>
+
+  <!-- ── How suggestions work ────────────────────────────────────────── -->
+  <h2>Smart suggestion chips</h2>
+  <p>
+    The widget shows clickable chips below each bot reply. The welcome message
+    always has quick-start chips. If the bot doesn't understand a query it shows
+    fallback chips so users always know what to ask next.
+  </p>
+
+  <div class="chip-row">
+    <span class="chip">What products do you have?</span>
+    <span class="chip">What's in stock?</span>
+    <span class="chip">Show me prices</span>
+    <span class="chip">Help me find something</span>
+  </div>
+  <p class="note">Chips on older messages grey out — only the latest reply has active chips.</p>
+
+  <h2>Custom welcome suggestions</h2>
+  <p>Pass a <code>suggestions</code> array to replace the auto-generated chips:</p>
+  <pre>&lt;script src="./chatbot-widget.iife.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  ChatbotWidget.init({
+    title: "Support Chat",
+    welcomeMessage: "Hi there! 👋 How can I help?",
+    suggestions: [
+      "What products do you have?",
+      "What's your return policy?",
+      "Do you ship internationally?",
+      "Talk to a human",
+    ],
+  });
+&lt;/script&gt;</pre>
+
+  <p>If <code>suggestions</code> is omitted the widget auto-generates chips from your product catalog.</p>
+
+  <!-- Widget script -->
   <script src="./chatbot-widget.iife.js"></script>
   <script>
     ChatbotWidget.init({
-      title:          'Support Chat',
-      welcomeMessage: 'Hi there! How can I help you today?',
+      title: 'Support Chat',
+      subtitle: 'Typically replies instantly',
+      primaryColor: '#6366f1',
+      welcomeMessage: 'Hi there! 👋 How can I help you today?',
+      position: 'bottom-right',
+      // No suggestions passed — auto-generated from products below
+      products: [
+        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true  },
+        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL',     price: 89.99,  category: 'Electronics', inStock: true  },
+        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
+        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',      price: 34.99,  category: 'Furniture',    inStock: true  },
+      ],
     });
   </script>
 

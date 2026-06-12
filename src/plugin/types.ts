@@ -23,4 +23,6 @@ export interface ChatbotConfig {
   placeholder?: string;
   products?: Product[];
   productsUrl?: string;
+  /** Custom quick-reply chips shown with the welcome message. Auto-generated from products if omitted. */
+  suggestions?: string[];
 }

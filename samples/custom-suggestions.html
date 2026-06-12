@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Suggestions — ChatbotWidget Sample</title>
+  <style>
+    body  { font-family: system-ui, sans-serif; max-width: 680px; margin: 60px auto; padding: 0 24px; color: #374151; }
+    h1   { font-size: 26px; color: #111827; margin: 0 0 8px; }
+    h2   { font-size: 16px; color: #111827; margin: 32px 0 10px; }
+    p    { line-height: 1.65; margin: 0 0 12px; }
+    code { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
+    pre  { background: #1e293b; color: #e2e8f0; border-radius: 10px; padding: 18px 20px; font-size: 13px; line-height: 1.7; overflow-x: auto; }
+    .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin: 0 0 20px; }
+
+    /* chip preview styles */
+    .example-block { border: 1px solid #e5e7eb; border-radius: 10px; padding: 18px 20px; margin-bottom: 24px; }
+    .example-block h3 { font-size: 14px; font-weight: 600; color: #111827; margin: 0 0 8px; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+    .chip {
+      display: inline-block; background: #fff;
+      border: 1.5px solid currentColor;
+      border-radius: 99px; padding: 5px 13px; font-size: 13px; font-family: inherit;
+    }
+    .chip--indigo { color: #6366f1; }
+    .chip--teal   { color: #0d9488; }
+    .chip--rose   { color: #e11d48; }
+    .note { font-size: 12px; color: #9ca3af; margin: 0; }
+    .badge { display: inline-block; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; border-radius: 99px; padding: 2px 9px; font-size: 11px; font-weight: 600; margin-left: 8px; vertical-align: middle; }
+  </style>
+</head>
+<body>
+
+  <h1>Custom suggestion chips</h1>
+  <p>
+    Suggestions are clickable quick-reply chips shown below the bot's messages.
+    They guide users when they don't know what to ask, and auto-update based on context.
+  </p>
+
+  <div class="tip">
+    <strong>Open the chat</strong> and click any chip — it fires as a user message immediately.
+    Then notice: after the bot replies, new context-aware chips appear. Chips on older messages grey out.
+  </div>
+
+  <!-- ── How it works ────────────────────────────────────────────────── -->
+  <h2>How suggestions work</h2>
+
+  <div class="example-block">
+    <h3>Welcome message chips <span class="badge">always shown</span></h3>
+    <div class="chip-row">
+      <span class="chip chip--indigo">What products do you have?</span>
+      <span class="chip chip--indigo">What's in stock?</span>
+      <span class="chip chip--indigo">Show me prices</span>
+      <span class="chip chip--indigo">Help me find something</span>
+    </div>
+    <p class="note">Auto-generated from your product catalog. Pass a <code>suggestions</code> array to use your own.</p>
+  </div>
+
+  <div class="example-block">
+    <h3>After a product listing reply</h3>
+    <div class="chip-row">
+      <span class="chip chip--teal">Tell me about Wireless Headphones</span>
+      <span class="chip chip--teal">Tell me about Mechanical Keyboard</span>
+      <span class="chip chip--teal">Tell me about Desk Lamp</span>
+    </div>
+    <p class="note">Context-aware — chips are generated from what was just listed.</p>
+  </div>
+
+  <div class="example-block">
+    <h3>When query is unclear — fallback chips</h3>
+    <div class="chip-row">
+      <span class="chip chip--rose">What products do you have?</span>
+      <span class="chip chip--rose">What's in stock?</span>
+      <span class="chip chip--rose">Show me prices</span>
+      <span class="chip chip--rose">Tell me about Wireless Headphones</span>
+    </div>
+    <p class="note">When the bot says "I'm not sure I understood…" these chips rescue the conversation.</p>
+  </div>
+
+  <!-- ── Code examples ──────────────────────────────────────────────── -->
+  <h2>1 — Auto-generated (default)</h2>
+  <pre>&lt;script src="./chatbot-widget.iife.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  ChatbotWidget.init({
+    products: [ /* your catalog */ ],
+    // No suggestions key — auto-built from products
+  });
+&lt;/script&gt;</pre>
+
+  <h2>2 — Custom welcome chips</h2>
+  <pre>&lt;script src="./chatbot-widget.iife.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  ChatbotWidget.init({
+    suggestions: [
+      "What products do you have?",
+      "What's your return policy?",
+      "Do you ship internationally?",
+      "Talk to a human",
+    ],
+  });
+&lt;/script&gt;</pre>
+
+  <h2>3 — Business-specific chips (no products)</h2>
+  <pre>&lt;script src="./chatbot-widget.iife.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  ChatbotWidget.init({
+    title:   "Support",
+    suggestions: [
+      "I have a billing question",
+      "My order hasn't arrived",
+      "I want to return something",
+      "Talk to a human",
+    ],
+  });
+&lt;/script&gt;</pre>
+
+  <p>
+    Up to 4 chips fit comfortably on mobile. You can pass more — the row wraps — but 3–4 is
+    the sweet spot.
+  </p>
+
+  <!-- Widget — custom suggestions demo -->
+  <script src="./chatbot-widget.iife.js"></script>
+  <script>
+    ChatbotWidget.init({
+      title:          'Support Chat',
+      subtitle:       'Click a chip or type your question',
+      primaryColor:   '#6366f1',
+      welcomeMessage: 'Hi! 👋 Not sure where to start? Pick a question below or just type.',
+      position:       'bottom-right',
+
+      // Custom welcome chips
+      suggestions: [
+        "What products do you have?",
+        "What's your return policy?",
+        "Do you ship internationally?",
+        "Show me prices",
+      ],
+
+      products: [
+        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true  },
+        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL',     price: 89.99,  category: 'Electronics', inStock: true  },
+        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
+        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',      price: 34.99,  category: 'Furniture',    inStock: true  },
+      ],
+    });
+  </script>
+
+</body>
+</html>

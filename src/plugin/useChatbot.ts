@@ -5,36 +5,49 @@ import { getResponse, getDelay } from './mockResponses';
 let counter = 0;
 function nextId() { return `msg-${++counter}`; }
 
-const WELCOME_SUGGESTIONS = [
+const DEFAULT_SUGGESTIONS = [
   'What products do you have?',
   "What's in stock?",
   'Show me prices',
   'Help me find something',
 ];
 
-export function useChatbot(welcomeMessage?: string, products: Product[] = []) {
+function productSuggestions(products: Product[]): string[] {
+  return [
+    'What products do you have?',
+    "What's in stock?",
+    'Show me prices',
+    `Tell me about ${products[0].name}`,
+  ];
+}
+
+export function useChatbot(
+  welcomeMessage?: string,
+  products: Product[] = [],
+  customSuggestions?: string[],
+) {
   const [messages, setMessages] = useState<Message[]>(() =>
     welcomeMessage
-      ? [{ id: nextId(), role: 'bot', content: welcomeMessage, timestamp: new Date(), suggestions: WELCOME_SUGGESTIONS }]
+      ? [{
+          id: nextId(),
+          role: 'bot',
+          content: welcomeMessage,
+          timestamp: new Date(),
+          suggestions: customSuggestions ?? DEFAULT_SUGGESTIONS,
+        }]
       : []
   );
   const [isTyping, setIsTyping] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // When products load (e.g. from a URL), refresh suggestions on the welcome message
+  // When products load from a URL, refresh welcome chips (unless the user passed custom ones)
   useEffect(() => {
-    if (!products.length) return;
+    if (!products.length || customSuggestions) return;
     setMessages(prev => {
       if (!prev.length || prev[0].role !== 'bot') return prev;
-      const productSuggestions = [
-        'What products do you have?',
-        "What's in stock?",
-        'Show me prices',
-        `Tell me about ${products[0].name}`,
-      ].slice(0, 4);
-      return [{ ...prev[0], suggestions: productSuggestions }, ...prev.slice(1)];
+      return [{ ...prev[0], suggestions: productSuggestions(products) }, ...prev.slice(1)];
     });
-  }, [products]);
+  }, [products, customSuggestions]);
 
   const sendMessage = useCallback((content: string) => {
     if (timerRef.current) clearTimeout(timerRef.current);

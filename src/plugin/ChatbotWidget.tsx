@@ -15,6 +15,7 @@ export function ChatbotWidget({
   welcomeMessage = 'Hi there! 👋 How can I help you today?',
   products: inlineProducts = [],
   productsUrl,
+  suggestions,
   ...config
 }: ChatbotWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,7 @@ export function ChatbotWidget({
       .catch(err => console.warn('[ChatbotWidget]', err.message));
   }, [productsUrl]);
 
-  const { messages, isTyping, sendMessage } = useChatbot(welcomeMessage, products);
+  const { messages, isTyping, sendMessage } = useChatbot(welcomeMessage, products, suggestions);
 
   return (
     <div
