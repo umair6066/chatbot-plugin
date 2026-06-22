@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "ChatbotPluginRNSample",
+    "slug": "chatbot-plugin-rn-sample",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.0",
+    "sdkVersion": "54.0.0"
+  }
+}

@@ -148,131 +148,34 @@ npm install github:umair6066/chatbot-plugin.git
 
 ---
 
-## � React Native Integration
+## 📱 React Native Sample Project
 
-### **Option 1: Using WebView** (Simplest)
+A sample React Native app is included at `samples/react-native`.
+It shows two approaches:
 
-Embed the web widget in a WebView component:
+- **WebView integration** with the existing web widget bundle
+- **Native UI integration** using a simple React Native chat screen
 
-```tsx
-import { WebView } from 'react-native-webview';
-import { View } from 'react-native';
-
-export default function ChatbotScreen() {
-  const htmlContent = `
-    <html>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://raw.githubusercontent.com/umair6066/chatbot-plugin/main/dist-widget/chatbot-widget.iife.js"></script>
-      </head>
-      <body style="margin: 0; padding: 0;">
-        <script>
-          window.ChatbotWidget.init({
-            position: 'bottom-right',
-            primaryColor: '#6366f1',
-            productsUrl: 'your-api-url'
-          });
-        </script>
-      </body>
-    </html>
-  `;
-
-  return (
-    <View style={{ flex: 1 }}>
-      <WebView
-        originWhitelist={['*']}
-        source={{ html: htmlContent }}
-      />
-    </View>
-  );
-}
-```
-
-**Install dependency:**
-```bash
-npm install react-native-webview
-```
-
-### **Option 2: Native React Native Components** (Advanced)
-
-Create wrapper using React Native UI components:
-
-```tsx
-import { View, TouchableOpacity, Text, ScrollView, TextInput } from 'react-native';
-import { useState } from 'react';
-
-export function ChatbotWidget({
-  primaryColor = '#6366f1',
-  welcomeMessage = 'Hi there! 👋'
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { id: 1, text: welcomeMessage, sender: 'bot' }
-  ]);
-
-  return (
-    <View style={{ position: 'absolute', bottom: 20, right: 20 }}>
-      {isOpen && (
-        <View style={{
-          width: 300,
-          height: 400,
-          backgroundColor: '#fff',
-          borderRadius: 12,
-          marginBottom: 10,
-          padding: 15
-        }}>
-          <ScrollView>
-            {messages.map(msg => (
-              <View key={msg.id} style={{ marginBottom: 10 }}>
-                <Text style={{
-                  backgroundColor: msg.sender === 'bot' ? primaryColor : '#e5e7eb',
-                  color: msg.sender === 'bot' ? '#fff' : '#000',
-                  padding: 10,
-                  borderRadius: 8
-                }}>
-                  {msg.text}
-                </Text>
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-      )}
-      <TouchableOpacity
-        onPress={() => setIsOpen(!isOpen)}
-        style={{
-          width: 60,
-          height: 60,
-          borderRadius: 30,
-          backgroundColor: primaryColor,
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Text style={{ color: '#fff', fontSize: 24 }}>💬</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
-```
-
----
-
-## �📝 Samples
-
-See the `samples/` directory for complete HTML examples:
-
-- `basic.html` — Simple setup
-- `ecommerce.html` — With products
-- `custom-suggestions.html` — With custom suggestions
-- `with-products-url.html` — Loading products from URL
-
-Run samples:
+### Run the sample
 
 ```bash
-npm run dev:samples
+cd samples/react-native
+npm install
+npx expo start
 ```
 
-Then visit `http://localhost:3000`
+Open the project in Expo Go or a simulator.
+
+### What to verify
+
+- **WebView tab**: loads the widget bundle from GitHub and displays the chat widget inside the mobile app.
+- **Native tab**: shows a sample React Native chat UI and allows typing messages.
+
+### Notes
+
+- The sample WebView loads the widget bundle from:
+  `https://raw.githubusercontent.com/umair6066/chatbot-plugin/main/dist-widget/chatbot-widget.iife.js`
+- Replace this URL with your own hosted widget path if needed.
 
 ---
 
