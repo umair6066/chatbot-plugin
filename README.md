@@ -148,34 +148,150 @@ npm install github:umair6066/chatbot-plugin.git
 
 ---
 
-## 📱 React Native Sample Project
+## 📱 React Native Integration
 
-A sample React Native app is included at `samples/react-native`.
-It shows two approaches:
+### Option 1: Using WebView (Simplest)
 
-- **WebView integration** with the existing web widget bundle
-- **Native UI integration** using a simple React Native chat screen
+Embed the web widget in a `WebView` component. The widget bundle is served via **jsDelivr CDN** — this is required because `raw.githubusercontent.com` serves files as `text/plain`, which WebViews refuse to execute as JavaScript.
 
-### Run the sample
+```tsx
+import { WebView } from 'react-native-webview';
+import { View } from 'react-native';
+
+export default function ChatbotScreen() {
+  const htmlContent = `
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/gh/umair6066/chatbot-plugin@main/dist-widget/chatbot-widget.iife.js"></script>
+      </head>
+      <body style="margin: 0; padding: 0;">
+        <script>
+          window.ChatbotWidget.init({
+            position: 'bottom-right',
+            primaryColor: '#6366f1',
+            productsUrl: 'your-api-url'
+          });
+        </script>
+      </body>
+    </html>
+  `;
+
+  return (
+    <View style={{ flex: 1 }}>
+      <WebView
+        originWhitelist={['*']}
+        source={{ html: htmlContent }}
+        javaScriptEnabled
+      />
+    </View>
+  );
+}
+```
+
+Install dependency:
+
+```bash
+npm install react-native-webview
+```
+
+> **Note:** After pushing a new widget build, purge the jsDelivr cache so the WebView picks up the latest version:
+> `https://purge.jsdelivr.net/gh/umair6066/chatbot-plugin@main/dist-widget/chatbot-widget.iife.js`
+
+### Option 2: Native React Native Components (Advanced)
+
+Create a wrapper using React Native UI components:
+
+```tsx
+import { View, TouchableOpacity, Text, ScrollView, TextInput } from 'react-native';
+import { useState } from 'react';
+
+export function ChatbotWidget({
+  primaryColor = '#6366f1',
+  welcomeMessage = 'Hi there! 👋'
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { id: 1, text: welcomeMessage, sender: 'bot' }
+  ]);
+
+  return (
+    <View style={{ position: 'absolute', bottom: 20, right: 20 }}>
+      {isOpen && (
+        <View style={{
+          width: 300,
+          height: 400,
+          backgroundColor: '#fff',
+          borderRadius: 12,
+          marginBottom: 10,
+          padding: 15
+        }}>
+          <ScrollView>
+            {messages.map(msg => (
+              <View key={msg.id} style={{ marginBottom: 10 }}>
+                <Text style={{
+                  backgroundColor: msg.sender === 'bot' ? primaryColor : '#e5e7eb',
+                  color: msg.sender === 'bot' ? '#fff' : '#000',
+                  padding: 10,
+                  borderRadius: 8
+                }}>
+                  {msg.text}
+                </Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      )}
+      <TouchableOpacity
+        onPress={() => setIsOpen(!isOpen)}
+        style={{
+          width: 60,
+          height: 60,
+          borderRadius: 30,
+          backgroundColor: primaryColor,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Text style={{ color: '#fff', fontSize: 24 }}>💬</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+```
+
+### Running the Sample App
+
+A ready-to-run sample project is included at `samples/react-native/` demonstrating both approaches above.
+
+**Requirement:** Expo Go **SDK 54** (version 54.x) on your device. Check in Expo Go → Profile tab. Update from the Play Store / App Store if needed.
 
 ```bash
 cd samples/react-native
 npm install
-npx expo start
+npx expo start --clear
 ```
 
-Open the project in Expo Go or a simulator.
+Scan the QR code with Expo Go, or press `a` for Android emulator / `i` for iOS simulator. See [`samples/react-native/README.md`](samples/react-native/README.md) for full details.
 
-### What to verify
+---
 
-- **WebView tab**: loads the widget bundle from GitHub and displays the chat widget inside the mobile app.
-- **Native tab**: shows a sample React Native chat UI and allows typing messages.
+## 📝 Samples
 
-### Notes
+See the `samples/` directory for complete HTML examples:
 
-- The sample WebView loads the widget bundle from:
-  `https://raw.githubusercontent.com/umair6066/chatbot-plugin/main/dist-widget/chatbot-widget.iife.js`
-- Replace this URL with your own hosted widget path if needed.
+- `basic.html` — Simple setup
+- `ecommerce.html` — With products
+- `custom-suggestions.html` — With custom suggestions
+- `with-products-url.html` — Loading products from URL
+
+Run samples:
+
+```bash
+npm run dev:samples
+```
+
+Then visit http://localhost:3000
 
 ---
 

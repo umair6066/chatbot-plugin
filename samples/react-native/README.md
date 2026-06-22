@@ -1,39 +1,70 @@
 # React Native Sample
 
-This sample project demonstrates how to use the chatbot plugin in React Native.
+Demonstrates two integration approaches for the chatbot plugin in a React Native (Expo) app.
 
-## What is included
+| Tab | Approach | Best for |
+|-----|----------|----------|
+| **WebView** | Embeds the web widget bundle in a `WebView` | Zero native code — drop-in the existing web widget |
+| **Native** | Fully native chat UI built with React Native components | Custom look, offline-capable, deep RN integration |
 
-- **WebView demo**: loads the existing web widget bundle from GitHub.
-- **Native UI demo**: sample mobile chat screen for a React Native app.
+## Requirements
+
+- **Node.js** 18+
+- **Expo Go** app on your device — must be **SDK 54** (version 54.x). Check: open Expo Go → Profile tab → version shown at the bottom. If older, update from the Play Store / App Store.
 
 ## Run the sample
 
 ```bash
 cd samples/react-native
 npm install
-npx expo start
+npx expo start --clear
 ```
 
-Then open the app in Expo Go or a simulator.
+Scan the QR code with Expo Go, or press `a` for Android emulator / `i` for iOS simulator.
 
-## Verify both approaches
+## WebView tab
 
-### WebView
+Loads the built widget bundle from jsDelivr CDN and initialises it with the sample product catalogue.
 
-- Open the app.
-- Select the `WebView` tab.
-- Confirm the chat widget loads and displays.
-- Verify you can type a message and see the widget UI.
+**Why jsDelivr and not `raw.githubusercontent.com`?**  
+GitHub's raw file server sends files as `text/plain`. Browsers and WebViews refuse to execute scripts with the wrong MIME type, so the widget would silently fail to load. jsDelivr proxies the same GitHub file but serves it with the correct `Content-Type: application/javascript`.
 
-### Native UI
+The widget URL used:
+```
+https://cdn.jsdelivr.net/gh/umair6066/chatbot-plugin@main/dist-widget/chatbot-widget.iife.js
+```
 
-- Select the `Native` tab.
-- Confirm the sample native chat UI appears.
-- Type a message and verify the sample response behavior.
+> **Note:** If you push a new build and the WebView shows the old version, purge the jsDelivr cache:
+> `https://purge.jsdelivr.net/gh/umair6066/chatbot-plugin@main/dist-widget/chatbot-widget.iife.js`
 
-## Notes
+## Native tab
 
-- The WebView demo uses the GitHub-hosted widget bundle:
-  `https://raw.githubusercontent.com/umair6066/chatbot-plugin/main/dist-widget/chatbot-widget.iife.js`
-- For production, host the widget bundle yourself or use a private asset URL.
+A fully native chat UI that mirrors the web widget experience:
+
+- **Greeting + suggestion chips** — same quick-reply prompts as the web widget
+- **Product-aware responses** — understands queries about products, prices, and stock from the same `products.json` dataset
+- **Keyboard-safe input** — `KeyboardAvoidingView` keeps the text field visible when the keyboard opens
+- **Auto-scroll** — message list scrolls to the latest message automatically
+
+## Project structure
+
+```
+samples/react-native/
+├── App.tsx          # Both WebView and native chat UI
+├── app.json         # Expo config (sdkVersion: 54.0.0)
+├── babel.config.js  # Uses babel-preset-expo
+├── metro.config.js  # Expo Metro config
+└── package.json
+```
+
+## Updating the widget
+
+When you rebuild the widget (`npm run build` in the root), commit and push `dist-widget/` so jsDelivr can serve the new version:
+
+```bash
+git add dist-widget/
+git commit -m "chore: rebuild widget"
+git push
+```
+
+Then purge the jsDelivr cache (URL above) and reload the app.
