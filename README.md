@@ -163,7 +163,7 @@ export default function ChatbotScreen() {
     <html>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://unpkg.com/chatbot-plugin@latest/dist-widget/chatbot-widget.iife.js"></script>
+        <script src="https://raw.githubusercontent.com/umair6066/chatbot-plugin/main/dist-widget/chatbot-widget.iife.js"></script>
       </head>
       <body style="margin: 0; padding: 0;">
         <script>
