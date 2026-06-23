@@ -18,7 +18,7 @@ import { WebView } from 'react-native-webview';
 
 // Bump this version string after every `npm run build:widget` + push
 // so the WebView bypasses its HTTP cache and fetches the latest bundle.
-const WIDGET_VERSION = '1bd7826';
+const WIDGET_VERSION = 'ccb5c3d';
 
 const CDN = `https://cdn.jsdelivr.net/gh/umair6066/chatbot-plugin@main/dist-widget`;
 

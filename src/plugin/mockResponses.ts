@@ -69,7 +69,7 @@ const DETAIL_PATTERNS =
   /\b(tell me about|details|more about|describe|specs|what model|what case|what metal|what ref|this one|that product|about it)\b/i;
 
 export const SHOW_MORE_RE =
-  /\b(show more|more results?|see (more|rest|all)|next( page)?|load more)\b/i;
+  /\b(show\s+(\d+\s+)?more|more results?|see (more|rest|all)|next( page)?|load more)\b/i;
 
 const ORDINAL_MAP: [RegExp, number][] = [
   [/\b(first|1st|number\s*1|#\s*1)\b/i,  0],
