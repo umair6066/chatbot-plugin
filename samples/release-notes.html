@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot Plugin — Release Notes · 23 June 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #374151;
+      line-height: 1.65;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: #fff;
+      padding: 52px 32px 44px;
+      text-align: center;
+    }
+    header h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+    header p  { font-size: 15px; opacity: 0.8; }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 99px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 18px;
+    }
+
+    /* Layout */
+    .container { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* Section */
+    .section { margin-bottom: 40px; }
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* Card */
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+    .tag-new      { background: #ede9fe; color: #6d28d9; }
+    .tag-improved { background: #dbeafe; color: #1d4ed8; }
+    .tag-fixed    { background: #dcfce7; color: #15803d; }
+
+    .card h2 { font-size: 16px; font-weight: 700; color: #111827; }
+    .card p  { font-size: 14px; color: #4b5563; margin-top: 6px; }
+    .card p + p { margin-top: 6px; }
+
+    ul.items { margin-top: 10px; padding-left: 0; list-style: none; }
+    ul.items li {
+      font-size: 14px;
+      color: #4b5563;
+      padding: 5px 0 5px 22px;
+      position: relative;
+    }
+    ul.items li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #a5b4fc;
+      font-weight: 700;
+    }
+
+    /* Inline code */
+    code {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 12.5px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: #6366f1;
+    }
+
+    /* Code block */
+    pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 12.5px;
+      line-height: 1.75;
+      overflow-x: auto;
+      margin-top: 14px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+    pre .comment { color: #64748b; }
+    pre .kw      { color: #93c5fd; }
+    pre .str     { color: #86efac; }
+    pre .fn      { color: #fde68a; }
+
+    /* Example chips */
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .chip {
+      display: inline-block;
+      background: #f5f3ff;
+      border: 1.5px solid #c4b5fd;
+      color: #6d28d9;
+      border-radius: 99px;
+      padding: 5px 13px;
+      font-size: 12.5px;
+      font-style: italic;
+    }
+
+    /* Table */
+    .table-wrap { overflow-x: auto; margin-top: 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      background: #f9fafb;
+      text-align: left;
+      padding: 9px 14px;
+      font-weight: 600;
+      color: #374151;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #f3f4f6;
+      color: #4b5563;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    td code { font-size: 11.5px; }
+
+    .tick { color: #10b981; font-weight: 700; }
+
+    /* Before / after */
+    .diff {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 560px) { .diff { grid-template-columns: 1fr; } }
+    .diff-cell { border-radius: 8px; padding: 12px 14px; font-size: 12.5px; line-height: 1.7; }
+    .diff-before { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+    .diff-after  { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .diff-label  { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px; opacity: 0.7; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 12px;
+      color: #9ca3af;
+      border-top: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">RELEASE NOTES</div>
+  <h1>Chatbot Plugin Update</h1>
+  <p>23 June 2026 &nbsp;·&nbsp; All improvements are live</p>
+</header>
+
+<div class="container">
+
+  <!-- ── NEW FEATURES ── -->
+  <div class="section">
+    <p class="section-label">New Features</p>
+
+    <!-- Show More -->
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-new">New</span>
+        <h2>Show More — result pagination</h2>
+      </div>
+      <p>
+        Results are capped at <strong>5 cards</strong> per reply to keep the chat readable.
+        When there are more matches a <strong>"Show 5 more"</strong> chip appears automatically.
+        Tapping it pages through the full result set without re-running the search.
+      </p>
+    </div>
+
+    <!-- Price Range -->
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-new">New</span>
+        <h2>Price Range Search</h2>
+      </div>
+      <p>Users can now filter by price in plain language:</p>
+      <div class="chip-row">
+        <span class="chip">"under 10k"</span>
+        <span class="chip">"less than $15,000"</span>
+        <span class="chip">"between 5k and 20k"</span>
+        <span class="chip">"over 50k"</span>
+      </div>
+      <p style="margin-top:10px;">
+        Also works as a refinement — search <em>"rolex"</em> first,
+        then <em>"under 15k"</em> to narrow just those results.
+      </p>
+    </div>
+
+    <!-- Ordinal Follow-ups -->
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-new">New</span>
+        <h2>Follow-up by Position</h2>
+      </div>
+      <p>
+        After any product listing, users can refer to results by position — no need to
+        type the full product name:
+      </p>
+      <div class="chip-row">
+        <span class="chip">"tell me about the second one"</span>
+        <span class="chip">"the third watch"</span>
+        <span class="chip">"#2"</span>
+      </div>
+      <p style="margin-top:10px;">
+        The bot remembers what it last showed and picks the right card.
+      </p>
+    </div>
+
+    <!-- Generic Types -->
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-new">New</span>
+        <h2>Generic Product Types</h2>
+      </div>
+      <p>
+        The <code>Product</code> type is now generic — each client defines their own product
+        shape with full TypeScript safety. Base fields are always available; extra fields are
+        added as the generic parameter:
+      </p>
+      <pre><span class="kw">type</span> WatchProduct = Product&lt;{
+  model:   <span class="str">string</span>;
+  reg:     <span class="str">string</span>;
+  metal?:  <span class="str">string</span>;
+  dial?:   <span class="str">string</span>;
+  serial?: <span class="str">string</span>;
+  status?: <span class="str">string</span>;
+}&gt;;</pre>
+      <p style="margin-top:12px;">
+        Custom fields are automatically <strong>searched and rendered</strong> — no extra
+        configuration. A user searching <code>ref=116610LN</code> or <code>blue dial steel</code>
+        matches against every field including custom ones. Works across all integration methods:
+      </p>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Method</th>
+            <th>Type safety</th>
+            <th>Custom fields searched & rendered</th>
+          </tr>
+          <tr>
+            <td>Inline array (TypeScript)</td>
+            <td><span class="tick">✓</span> Compile-time</td>
+            <td><span class="tick">✓</span></td>
+          </tr>
+          <tr>
+            <td><code>productsUrl</code> JSON fetch</td>
+            <td>Runtime only</td>
+            <td><span class="tick">✓</span></td>
+          </tr>
+          <tr>
+            <td>IIFE / CDN (<code>ChatbotWidget.init</code>)</td>
+            <td>Plain JS</td>
+            <td><span class="tick">✓</span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- onSearch -->
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-new">New</span>
+        <h2>API-Backed Search — <code>onSearch</code></h2>
+      </div>
+      <p>
+        For large or live catalogs, pass an <code>onSearch</code> callback instead of loading
+        products upfront. The widget calls it for every non-greeting message and renders the
+        returned products as cards:
+      </p>
+      <pre><span class="str">&lt;ChatbotWidget</span>
+  <span class="kw">onSearch</span>={<span class="kw">async</span> (query) =&gt; {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(
+      <span class="str">`/api/products/search?q=</span>${<span class="fn">encodeURIComponent</span>(query)}<span class="str">`</span>
+    );
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+    <span class="kw">return</span> data.products;
+  }}
+<span class="str">/&gt;</span></pre>
+      <ul class="items" style="margin-top:14px;">
+        <li>Greetings ("hi", "thanks") handled locally — no API call made</li>
+        <li>Results capped at 5 cards per reply; "Show more" pages without a second call</li>
+        <li>All local intents (cheapest, price range, stock) still work on API results</li>
+        <li>Friendly error message shown if the API call fails</li>
+      </ul>
+      <p style="margin-top:12px;">
+        The <strong>on-search.html</strong> sample demonstrates this with a simulated 400 ms
+        API delay and a live request log.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ── IMPROVEMENTS ── -->
+  <div class="section">
+    <p class="section-label">Improvements</p>
+
+    <!-- Conversational replies -->
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-improved">Improved</span>
+        <h2>Conversational Reply Quality</h2>
+      </div>
+      <p>All bot responses rewritten to sound natural rather than mechanical:</p>
+      <div class="diff">
+        <div class="diff-cell diff-before">
+          <div class="diff-label">Before</div>
+          "Found 7 matching products (showing 5 of 7):"<br><br>
+          "Here are our in-stock products:"<br><br>
+          "I'm not sure I understood that."
+        </div>
+        <div class="diff-cell diff-after">
+          <div class="diff-label">After</div>
+          "Found 7 matches — here are the first 5:"<br><br>
+          "9 available right now (1 temporarily unavailable):"<br><br>
+          "I didn't quite catch that — try a brand name, model, or ref number:"
+        </div>
+      </div>
+    </div>
+
+    <!-- Suggestion chips -->
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-improved">Improved</span>
+        <h2>Suggestion Chips</h2>
+      </div>
+      <ul class="items">
+        <li>Chips update after <strong>every</strong> bot reply with context-aware options</li>
+        <li>Older chips grey out so it's clear which are active</li>
+        <li>"Show X more" chip added automatically when results are capped</li>
+        <li>After a product detail reply, chips suggest related products from the same results</li>
+      </ul>
+    </div>
+
+    <!-- React Native -->
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-improved">Improved</span>
+        <h2>React Native Sample App</h2>
+      </div>
+      <ul class="items">
+        <li>Native tab updated to use the same 10 watch products as the web widget</li>
+        <li>Native search now supports: brand search, ref number, price range, stock, cheapest, most expensive</li>
+        <li>Suggestion chips update after every reply — not just the welcome message</li>
+        <li>WebView tab uses <code>Date.now()</code> as cache buster — always loads the latest widget on app start, no manual version bumping needed</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ── SAMPLES & DOCS ── -->
+  <div class="section">
+    <p class="section-label">Samples &amp; Documentation</p>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-improved">Updated</span>
+        <h2>Sample Pages</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <tr><th>File</th><th>What it demonstrates</th></tr>
+          <tr><td><code>basic.html</code></td><td>Minimal setup, suggestion chips</td></tr>
+          <tr><td><code>with-products-inline.html</code></td><td>Products as an inline array</td></tr>
+          <tr><td><code>with-products-url.html</code></td><td>Products fetched from a JSON URL</td></tr>
+          <tr><td><code>on-search.html</code> <span style="color:#6d28d9;font-size:11px;font-weight:700;">NEW</span></td><td>API-backed search with live request log</td></tr>
+          <tr><td><code>custom-suggestions.html</code></td><td>Custom and auto-generated chips</td></tr>
+          <tr><td><code>ecommerce.html</code></td><td>Full store page with chatbot overlay</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="tag tag-improved">Updated</span>
+        <h2>README &amp; Docs</h2>
+      </div>
+      <ul class="items">
+        <li>Props table now includes <code>title</code>, <code>subtitle</code>, <code>placeholder</code>, <code>onSearch</code></li>
+        <li>New "What users can ask" section — full reference of every supported query type</li>
+        <li>Generic product types documented with typed examples</li>
+        <li>Guidance on when to use <code>products</code> vs <code>productsUrl</code> vs <code>onSearch</code></li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>Chatbot Plugin &nbsp;·&nbsp; 23 June 2026 &nbsp;·&nbsp; All changes are live on the main branch</footer>
+
+</body>
+</html>
