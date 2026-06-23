@@ -14,7 +14,7 @@
       line-height: 1.65;
     }
 
-    /* Header */
+    /* ── Header ── */
     header {
       background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
       color: #fff;
@@ -35,10 +35,9 @@
       margin-bottom: 18px;
     }
 
-    /* Layout */
-    .container { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    /* ── Layout ── */
+    .container { max-width: 780px; margin: 0 auto; padding: 48px 24px 80px; }
 
-    /* Section */
     .section { margin-bottom: 40px; }
     .section-label {
       font-size: 10px;
@@ -51,7 +50,7 @@
       border-bottom: 1px solid #e5e7eb;
     }
 
-    /* Card */
+    /* ── Card ── */
     .card {
       background: #fff;
       border: 1px solid #e5e7eb;
@@ -59,126 +58,125 @@
       padding: 22px 24px;
       margin-bottom: 16px;
     }
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
+    .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .tag {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 99px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.6px;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 99px;
     }
     .tag-new      { background: #ede9fe; color: #6d28d9; }
     .tag-improved { background: #dbeafe; color: #1d4ed8; }
-    .tag-fixed    { background: #dcfce7; color: #15803d; }
 
     .card h2 { font-size: 16px; font-weight: 700; color: #111827; }
-    .card p  { font-size: 14px; color: #4b5563; margin-top: 6px; }
-    .card p + p { margin-top: 6px; }
+    .card p  { font-size: 14px; color: #4b5563; margin-top: 8px; }
 
     ul.items { margin-top: 10px; padding-left: 0; list-style: none; }
     ul.items li {
-      font-size: 14px;
-      color: #4b5563;
-      padding: 5px 0 5px 22px;
-      position: relative;
+      font-size: 14px; color: #4b5563;
+      padding: 5px 0 5px 22px; position: relative;
     }
-    ul.items li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: #a5b4fc;
-      font-weight: 700;
-    }
+    ul.items li::before { content: '→'; position: absolute; left: 0; color: #a5b4fc; font-weight: 700; }
 
-    /* Inline code */
+    /* ── Inline code ── */
     code {
-      background: #f3f4f6;
-      border: 1px solid #e5e7eb;
-      border-radius: 4px;
-      padding: 1px 6px;
-      font-size: 12.5px;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      color: #6366f1;
+      background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px;
+      padding: 1px 6px; font-size: 12.5px;
+      font-family: 'SF Mono', 'Fira Code', monospace; color: #6366f1;
     }
 
-    /* Code block */
+    /* ── Code block ── */
     pre {
-      background: #1e293b;
-      color: #e2e8f0;
-      border-radius: 10px;
-      padding: 16px 18px;
-      font-size: 12.5px;
-      line-height: 1.75;
-      overflow-x: auto;
-      margin-top: 14px;
+      background: #1e293b; color: #e2e8f0; border-radius: 10px;
+      padding: 16px 18px; font-size: 12.5px; line-height: 1.75;
+      overflow-x: auto; margin-top: 14px;
       font-family: 'SF Mono', 'Fira Code', monospace;
     }
-    pre .comment { color: #64748b; }
-    pre .kw      { color: #93c5fd; }
-    pre .str     { color: #86efac; }
-    pre .fn      { color: #fde68a; }
+    pre .kw  { color: #93c5fd; }
+    pre .str { color: #86efac; }
+    pre .fn  { color: #fde68a; }
+    pre .cm  { color: #64748b; }
 
-    /* Example chips */
+    /* ── Query chips ── */
     .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .chip {
-      display: inline-block;
-      background: #f5f3ff;
-      border: 1.5px solid #c4b5fd;
-      color: #6d28d9;
-      border-radius: 99px;
-      padding: 5px 13px;
-      font-size: 12.5px;
-      font-style: italic;
+      display: inline-block; background: #f5f3ff;
+      border: 1.5px solid #c4b5fd; color: #6d28d9;
+      border-radius: 99px; padding: 5px 13px;
+      font-size: 12.5px; font-style: italic;
     }
 
-    /* Table */
+    /* ── Table ── */
     .table-wrap { overflow-x: auto; margin-top: 14px; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th {
-      background: #f9fafb;
-      text-align: left;
-      padding: 9px 14px;
-      font-weight: 600;
-      color: #374151;
+      background: #f9fafb; text-align: left;
+      padding: 9px 14px; font-weight: 600; color: #374151;
       border-bottom: 1px solid #e5e7eb;
     }
-    td {
-      padding: 9px 14px;
-      border-bottom: 1px solid #f3f4f6;
-      color: #4b5563;
-      vertical-align: top;
-    }
+    td { padding: 9px 14px; border-bottom: 1px solid #f3f4f6; color: #4b5563; vertical-align: top; }
     tr:last-child td { border-bottom: none; }
     td code { font-size: 11.5px; }
-
     .tick { color: #10b981; font-weight: 700; }
 
-    /* Before / after */
-    .diff {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
+    /* ── Before / After ── */
+    .diff { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
     @media (max-width: 560px) { .diff { grid-template-columns: 1fr; } }
     .diff-cell { border-radius: 8px; padding: 12px 14px; font-size: 12.5px; line-height: 1.7; }
     .diff-before { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
     .diff-after  { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
     .diff-label  { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px; opacity: 0.7; }
 
+    /* ── Chat Demo ── */
+    .demo-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #9ca3af; margin: 18px 0 10px;
+    }
+    .chat-demo {
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 14px 14px 10px;
+    }
+    .msg { display: flex; margin-bottom: 8px; gap: 8px; }
+    .msg.user { flex-direction: row-reverse; }
+    .avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0; margin-top: 2px;
+    }
+    .avatar.bot  { background: #6366f1; color: #fff; }
+    .avatar.user { background: #e0e7ff; color: #4338ca; }
+    .bubble {
+      max-width: 75%; padding: 9px 13px; border-radius: 14px;
+      font-size: 13px; line-height: 1.55;
+    }
+    .bubble.bot  { background: #fff; color: #111827; border-bottom-left-radius: 4px; }
+    .bubble.user { background: #6366f1; color: #fff; border-bottom-right-radius: 4px; }
+
+    /* Mini product card inside chat */
+    .mini-cards { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; padding-left: 36px; }
+    .mini-card {
+      background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 8px; padding: 10px 12px; font-size: 12px;
+    }
+    .mini-card-name { font-weight: 700; color: #6366f1; margin-bottom: 4px; }
+    .mini-card-row  { display: flex; justify-content: space-between; color: #6b7280; font-size: 11.5px; }
+    .mini-card-price { font-weight: 600; color: #111827; }
+    .mini-card-stock-in  { color: #059669; font-weight: 600; }
+    .mini-card-stock-out { color: #dc2626; font-weight: 600; }
+    .mini-card-field { color: #6b7280; font-size: 11px; margin-top: 2px; }
+
+    /* Suggestion chips inside chat */
+    .demo-chips { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 36px; margin-bottom: 6px; }
+    .demo-chip {
+      border: 1.5px solid #6366f1; color: #6366f1;
+      border-radius: 99px; padding: 4px 10px; font-size: 11.5px;
+      background: #fff;
+    }
+    .demo-chip.inactive { border-color: #d1d5db; color: #9ca3af; }
+
     /* Footer */
     footer {
-      text-align: center;
-      padding: 32px 24px;
-      font-size: 12px;
-      color: #9ca3af;
-      border-top: 1px solid #e5e7eb;
+      text-align: center; padding: 32px 24px;
+      font-size: 12px; color: #9ca3af; border-top: 1px solid #e5e7eb;
     }
   </style>
 </head>
@@ -192,11 +190,11 @@
 
 <div class="container">
 
-  <!-- ── NEW FEATURES ── -->
+  <!-- ════════════════════════════════ NEW FEATURES ════════════════════════════════ -->
   <div class="section">
     <p class="section-label">New Features</p>
 
-    <!-- Show More -->
+    <!-- ── Show More ── -->
     <div class="card">
       <div class="card-header">
         <span class="tag tag-new">New</span>
@@ -204,51 +202,156 @@
       </div>
       <p>
         Results are capped at <strong>5 cards</strong> per reply to keep the chat readable.
-        When there are more matches a <strong>"Show 5 more"</strong> chip appears automatically.
-        Tapping it pages through the full result set without re-running the search.
+        When there are more matches, a <strong>"Show 5 more"</strong> chip appears automatically.
+        Tapping it pages through the rest without re-running the search.
       </p>
+
+      <p class="demo-label">Example</p>
+      <div class="chat-demo">
+        <div class="msg user">
+          <div class="avatar user">U</div>
+          <div class="bubble user">rolex</div>
+        </div>
+        <div class="msg">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot">Found 6 matches — here are the first 5:</div>
+        </div>
+        <div class="mini-cards">
+          <div class="mini-card">
+            <div class="mini-card-name">Rolex, Submariner Date, 116610LN, 2019, Steel</div>
+            <div class="mini-card-row"><span class="mini-card-price">$12,850</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-name">Rolex, Daytona, 116500LN, 2020, Steel</div>
+            <div class="mini-card-row"><span class="mini-card-price">$38,500</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+          <div class="mini-card" style="color:#9ca3af;font-size:11px;text-align:center;padding:7px;">+ 3 more cards…</div>
+        </div>
+        <div class="demo-chips" style="margin-top:8px;">
+          <span class="demo-chip">Tell me about Submariner Date</span>
+          <span class="demo-chip">Tell me about Daytona</span>
+          <span class="demo-chip" style="border-color:#6366f1;background:#ede9fe;font-weight:600;">Show 1 more</span>
+        </div>
+        <div class="msg user" style="margin-top:8px;">
+          <div class="avatar user">U</div>
+          <div class="bubble user">Show 1 more</div>
+        </div>
+        <div class="msg">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot">And the last 1:</div>
+        </div>
+        <div class="mini-cards">
+          <div class="mini-card">
+            <div class="mini-card-name">Rolex, GMT-Master II, 126710BLNR, 2022, Steel</div>
+            <div class="mini-card-row"><span class="mini-card-price">$16,500</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Price Range -->
+    <!-- ── Price Range ── -->
     <div class="card">
       <div class="card-header">
         <span class="tag tag-new">New</span>
         <h2>Price Range Search</h2>
       </div>
-      <p>Users can now filter by price in plain language:</p>
+      <p>Users can filter by price in plain language — no special syntax required:</p>
       <div class="chip-row">
         <span class="chip">"under 10k"</span>
         <span class="chip">"less than $15,000"</span>
         <span class="chip">"between 5k and 20k"</span>
         <span class="chip">"over 50k"</span>
       </div>
-      <p style="margin-top:10px;">
-        Also works as a refinement — search <em>"rolex"</em> first,
-        then <em>"under 15k"</em> to narrow just those results.
-      </p>
+      <p>Also works as a refinement — search <em>"rolex"</em> first, then <em>"under 15k"</em> to narrow just those results.</p>
+
+      <p class="demo-label">Example — "between 5k and 15k"</p>
+      <div class="chat-demo">
+        <div class="msg user">
+          <div class="avatar user">U</div>
+          <div class="bubble user">between 5k and 15k</div>
+        </div>
+        <div class="msg">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot">4 watches in that range ($5,000–$15,000):</div>
+        </div>
+        <div class="mini-cards">
+          <div class="mini-card">
+            <div class="mini-card-name">Omega, Seamaster 300M, 2021, Steel</div>
+            <div class="mini-card-row"><span class="mini-card-price">$5,200</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-name">Rolex, Submariner Date, 116610LN, 2019, Steel</div>
+            <div class="mini-card-row"><span class="mini-card-price">$12,850</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+          <div class="mini-card" style="color:#9ca3af;font-size:11px;text-align:center;padding:7px;">+ 2 more cards…</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Ordinal Follow-ups -->
+    <!-- ── Ordinal Follow-ups ── -->
     <div class="card">
       <div class="card-header">
         <span class="tag tag-new">New</span>
         <h2>Follow-up by Position</h2>
       </div>
       <p>
-        After any product listing, users can refer to results by position — no need to
-        type the full product name:
+        After any product listing the bot remembers what it showed.
+        Users can ask about a specific result by position — no need to type the full name:
       </p>
       <div class="chip-row">
         <span class="chip">"tell me about the second one"</span>
         <span class="chip">"the third watch"</span>
         <span class="chip">"#2"</span>
       </div>
-      <p style="margin-top:10px;">
-        The bot remembers what it last showed and picks the right card.
-      </p>
+
+      <p class="demo-label">Example — search then follow up</p>
+      <div class="chat-demo">
+        <div class="msg user">
+          <div class="avatar user">U</div>
+          <div class="bubble user">blue dial</div>
+        </div>
+        <div class="msg">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot">Found 3 matches:</div>
+        </div>
+        <div class="mini-cards">
+          <div class="mini-card">
+            <div class="mini-card-name">Omega, Seamaster 300M — Blue dial</div>
+            <div class="mini-card-row"><span class="mini-card-price">$5,200</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-name">Patek Philippe, Nautilus — Blue dial</div>
+            <div class="mini-card-row"><span class="mini-card-price">$95,000</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-name">Rolex, Datejust 41 — Blue Motif</div>
+            <div class="mini-card-row"><span class="mini-card-price">$9,800</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+        </div>
+        <div class="demo-chips" style="margin-top:8px;">
+          <span class="demo-chip inactive">Tell me about Seamaster</span>
+          <span class="demo-chip inactive">Tell me about Nautilus</span>
+          <span class="demo-chip inactive">Tell me about Datejust</span>
+        </div>
+        <div class="msg user" style="margin-top:8px;">
+          <div class="avatar user">U</div>
+          <div class="bubble user">tell me about the second one</div>
+        </div>
+        <div class="msg">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot">Here you go:</div>
+        </div>
+        <div class="mini-cards">
+          <div class="mini-card">
+            <div class="mini-card-name">Patek Philippe, Nautilus, 5711/1A-010, 2018, Steel</div>
+            <div class="mini-card-row"><span class="mini-card-price">$95,000</span><span class="mini-card-stock-in">● In Stock</span></div>
+            <div class="mini-card-field">Model: Nautilus &nbsp;·&nbsp; Ref: 5711/1A-010 &nbsp;·&nbsp; Dial: Blue &nbsp;·&nbsp; Metal: Steel</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Generic Types -->
+    <!-- ── Generic Types ── -->
     <div class="card">
       <div class="card-header">
         <span class="tag tag-new">New</span>
@@ -256,49 +359,80 @@
       </div>
       <p>
         The <code>Product</code> type is now generic — each client defines their own product
-        shape with full TypeScript safety. Base fields are always available; extra fields are
+        shape with full TypeScript safety. Base fields are always included; extra fields are
         added as the generic parameter:
       </p>
-      <pre><span class="kw">type</span> WatchProduct = Product&lt;{
+
+      <p class="demo-label">Step 1 — Define your type</p>
+      <pre><span class="cm">// Your custom shape for a watch dealer</span>
+<span class="kw">type</span> WatchProduct = Product&lt;{
   model:   <span class="str">string</span>;
-  reg:     <span class="str">string</span>;
+  reg:     <span class="str">string</span>;    <span class="cm">// reference number</span>
+  serial?: <span class="str">string</span>;
   metal?:  <span class="str">string</span>;
   dial?:   <span class="str">string</span>;
-  serial?: <span class="str">string</span>;
   status?: <span class="str">string</span>;
 }&gt;;</pre>
+
+      <p class="demo-label">Step 2 — Create your products</p>
+      <pre><span class="kw">const</span> watches: WatchProduct[] = [
+  {
+    id:          <span class="str">'48291'</span>,
+    name:        <span class="str">'Rolex, Submariner Date, 116610LN, 2019, Steel'</span>,
+    price:       <span class="fn">12850</span>,
+    inStock:     <span class="kw">true</span>,
+    <span class="cm">// Your custom fields ↓</span>
+    model:       <span class="str">'Submariner Date'</span>,
+    reg:         <span class="str">'116610LN'</span>,
+    metal:       <span class="str">'Steel'</span>,
+    dial:        <span class="str">'Black'</span>,
+    status:      <span class="str">'Purchased/InStock'</span>,
+  },
+];</pre>
+
+      <p class="demo-label">Step 3 — Pass to the widget</p>
+      <pre>&lt;<span class="fn">ChatbotWidget</span> <span class="kw">products</span>={watches} /&gt;</pre>
+
+      <p class="demo-label">What the user sees — all fields automatically rendered</p>
+      <div class="chat-demo">
+        <div class="msg user">
+          <div class="avatar user">U</div>
+          <div class="bubble user">tell me about the submariner</div>
+        </div>
+        <div class="msg">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot">Here you go:</div>
+        </div>
+        <div class="mini-cards">
+          <div class="mini-card">
+            <div class="mini-card-name">Rolex, Submariner Date, 116610LN, 2019, Steel</div>
+            <div class="mini-card-row"><span class="mini-card-price">$12,850</span><span class="mini-card-stock-in">● In Stock</span></div>
+            <div class="mini-card-field" style="margin-top:6px;line-height:1.8;">
+              Model: Submariner Date<br>
+              Ref: 116610LN<br>
+              Metal: Steel<br>
+              Dial: Black<br>
+              Status: Purchased/InStock
+            </div>
+          </div>
+        </div>
+      </div>
       <p style="margin-top:12px;">
-        Custom fields are automatically <strong>searched and rendered</strong> — no extra
-        configuration. A user searching <code>ref=116610LN</code> or <code>blue dial steel</code>
-        matches against every field including custom ones. Works across all integration methods:
+        Every field — including <code>model</code>, <code>reg</code>, <code>dial</code>, and any others you add — is
+        automatically <strong>searchable</strong> and <strong>shown on the card</strong>.
+        No extra configuration needed. Works across all three integration methods:
       </p>
       <div class="table-wrap">
         <table>
-          <tr>
-            <th>Method</th>
-            <th>Type safety</th>
-            <th>Custom fields searched & rendered</th>
-          </tr>
-          <tr>
-            <td>Inline array (TypeScript)</td>
-            <td><span class="tick">✓</span> Compile-time</td>
-            <td><span class="tick">✓</span></td>
-          </tr>
-          <tr>
-            <td><code>productsUrl</code> JSON fetch</td>
-            <td>Runtime only</td>
-            <td><span class="tick">✓</span></td>
-          </tr>
-          <tr>
-            <td>IIFE / CDN (<code>ChatbotWidget.init</code>)</td>
-            <td>Plain JS</td>
-            <td><span class="tick">✓</span></td>
-          </tr>
+          <tr><th>Method</th><th>Type safety</th><th>Custom fields searched & rendered</th></tr>
+          <tr><td>Inline array (TypeScript)</td><td><span class="tick">✓</span> Compile-time</td><td><span class="tick">✓</span></td></tr>
+          <tr><td><code>productsUrl</code> JSON fetch</td><td>Runtime only</td><td><span class="tick">✓</span></td></tr>
+          <tr><td>IIFE / CDN (<code>ChatbotWidget.init</code>)</td><td>Plain JS</td><td><span class="tick">✓</span></td></tr>
         </table>
       </div>
     </div>
 
-    <!-- onSearch -->
+    <!-- ── onSearch ── -->
     <div class="card">
       <div class="card-header">
         <span class="tag tag-new">New</span>
@@ -306,33 +440,83 @@
       </div>
       <p>
         For large or live catalogs, pass an <code>onSearch</code> callback instead of loading
-        products upfront. The widget calls it for every non-greeting message and renders the
-        returned products as cards:
+        products upfront. The widget calls it for every non-greeting message and renders the returned
+        products as cards. No pre-loading — the API is only called when the user actually searches.
       </p>
-      <pre><span class="str">&lt;ChatbotWidget</span>
+
+      <p class="demo-label">React usage</p>
+      <pre>&lt;<span class="fn">ChatbotWidget</span>
   <span class="kw">onSearch</span>={<span class="kw">async</span> (query) =&gt; {
     <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(
-      <span class="str">`/api/products/search?q=</span>${<span class="fn">encodeURIComponent</span>(query)}<span class="str">`</span>
+      <span class="str">`/api/products/search?q=</span>${<span class="fn">encodeURIComponent</span>(query)}<span class="str">&per_page=10`</span>
     );
     <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
-    <span class="kw">return</span> data.products;
+    <span class="kw">return</span> data.products.<span class="fn">map</span>(mapProduct);
   }}
-<span class="str">/&gt;</span></pre>
+/&gt;</pre>
+
+      <p class="demo-label">BW Dealer App — actual API example</p>
+      <pre><span class="kw">async function</span> <span class="fn">searchInventory</span>(query: <span class="str">string</span>): Promise&lt;WatchProduct[]&gt; {
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(
+    <span class="str">`/admin/products?search=</span>${<span class="fn">encodeURIComponent</span>(query)}<span class="str">`</span>
+    + <span class="str">`&status=Purchased/InStock,Consignment,Working On`</span>
+    + <span class="str">`&per_page=10&page=1`</span>
+  );
+  <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+  <span class="kw">return</span> data.data.products.<span class="fn">map</span>((p: <span class="str">any</span>) =&gt; ({
+    id:       p.chatbotPluginProduct.id,
+    name:     p.chatbotPluginProduct.title,
+    price:    p.chatbotPluginProduct.retailPrice,
+    model:    p.chatbotPluginProduct.model,
+    reg:      p.chatbotPluginProduct.reg,
+    dial:     p.chatbotPluginProduct.dial,
+    metal:    p.chatbotPluginProduct.metal,
+    status:   p.chatbotPluginProduct.status,
+    inStock:  p.chatbotPluginProduct.status !== <span class="str">'Working On'</span>,
+  }));
+}</pre>
+
+      <p class="demo-label">How the conversation flows</p>
+      <div class="chat-demo">
+        <div class="msg user">
+          <div class="avatar user">U</div>
+          <div class="bubble user">submariner steel 2020</div>
+        </div>
+        <div class="msg">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot" style="color:#9ca3af;font-style:italic;">typing…</div>
+        </div>
+        <div class="msg" style="margin-top:-2px;">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot">Found 2 matches:</div>
+        </div>
+        <div class="mini-cards">
+          <div class="mini-card">
+            <div class="mini-card-name">Rolex, Submariner Date, 116610LN, 2020, Steel</div>
+            <div class="mini-card-row"><span class="mini-card-price">$13,200</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-name">Rolex, Submariner No-Date, 114060, 2020, Steel</div>
+            <div class="mini-card-row"><span class="mini-card-price">$10,800</span><span class="mini-card-stock-in">● In Stock</span></div>
+          </div>
+        </div>
+        <div class="demo-chips" style="margin-top:8px;">
+          <span class="demo-chip">Tell me about Submariner Date</span>
+          <span class="demo-chip">Tell me about Submariner No-Date</span>
+        </div>
+      </div>
+
       <ul class="items" style="margin-top:14px;">
-        <li>Greetings ("hi", "thanks") handled locally — no API call made</li>
-        <li>Results capped at 5 cards per reply; "Show more" pages without a second call</li>
-        <li>All local intents (cheapest, price range, stock) still work on API results</li>
-        <li>Friendly error message shown if the API call fails</li>
+        <li>Greetings ("hi", "thanks") and "show more" handled locally — no API call made</li>
+        <li>Results capped at 5 cards; "Show more" pages through what was returned without a second API call</li>
+        <li>Price range, stock, cheapest intents all work on whatever the API returns</li>
+        <li>Friendly error message if the API call fails — user can try again</li>
       </ul>
-      <p style="margin-top:12px;">
-        The <strong>on-search.html</strong> sample demonstrates this with a simulated 400 ms
-        API delay and a live request log.
-      </p>
     </div>
 
   </div>
 
-  <!-- ── IMPROVEMENTS ── -->
+  <!-- ════════════════════════════════ IMPROVEMENTS ════════════════════════════════ -->
   <div class="section">
     <p class="section-label">Improvements</p>
 
@@ -367,10 +551,36 @@
       </div>
       <ul class="items">
         <li>Chips update after <strong>every</strong> bot reply with context-aware options</li>
-        <li>Older chips grey out so it's clear which are active</li>
+        <li>Older chips grey out — only the latest reply's chips are tappable</li>
         <li>"Show X more" chip added automatically when results are capped</li>
-        <li>After a product detail reply, chips suggest related products from the same results</li>
+        <li>After a detail reply, chips suggest related products from the same search</li>
       </ul>
+
+      <p class="demo-label">Example — chips updating through a conversation</p>
+      <div class="chat-demo">
+        <div class="msg">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot">Hi! Looking for something specific or just browsing?</div>
+        </div>
+        <div class="demo-chips">
+          <span class="demo-chip inactive">What do you have?</span>
+          <span class="demo-chip inactive">What's in stock?</span>
+          <span class="demo-chip inactive">Show me prices</span>
+        </div>
+        <div class="msg user">
+          <div class="avatar user">U</div>
+          <div class="bubble user">omega</div>
+        </div>
+        <div class="msg">
+          <div class="avatar bot">🤖</div>
+          <div class="bubble bot">Found 2 matches:</div>
+        </div>
+        <div class="demo-chips">
+          <span class="demo-chip">Tell me about Seamaster 300M</span>
+          <span class="demo-chip">Tell me about Speedmaster</span>
+          <span class="demo-chip">What's in stock?</span>
+        </div>
+      </div>
     </div>
 
     <!-- React Native -->
@@ -381,15 +591,15 @@
       </div>
       <ul class="items">
         <li>Native tab updated to use the same 10 watch products as the web widget</li>
-        <li>Native search now supports: brand search, ref number, price range, stock, cheapest, most expensive</li>
+        <li>Native search now supports: brand, ref number, price range, stock, cheapest, most expensive</li>
         <li>Suggestion chips update after every reply — not just the welcome message</li>
-        <li>WebView tab uses <code>Date.now()</code> as cache buster — always loads the latest widget on app start, no manual version bumping needed</li>
+        <li>WebView tab uses <code>Date.now()</code> as cache buster — always loads the latest widget on app start with no manual version bumping</li>
       </ul>
     </div>
 
   </div>
 
-  <!-- ── SAMPLES & DOCS ── -->
+  <!-- ════════════════════════════════ SAMPLES & DOCS ════════════════════════════════ -->
   <div class="section">
     <p class="section-label">Samples &amp; Documentation</p>
 
@@ -404,7 +614,7 @@
           <tr><td><code>basic.html</code></td><td>Minimal setup, suggestion chips</td></tr>
           <tr><td><code>with-products-inline.html</code></td><td>Products as an inline array</td></tr>
           <tr><td><code>with-products-url.html</code></td><td>Products fetched from a JSON URL</td></tr>
-          <tr><td><code>on-search.html</code> <span style="color:#6d28d9;font-size:11px;font-weight:700;">NEW</span></td><td>API-backed search with live request log</td></tr>
+          <tr><td><code>on-search.html</code> <span style="color:#6d28d9;font-size:11px;font-weight:700;">NEW</span></td><td>API-backed search with a simulated server and live request log</td></tr>
           <tr><td><code>custom-suggestions.html</code></td><td>Custom and auto-generated chips</td></tr>
           <tr><td><code>ecommerce.html</code></td><td>Full store page with chatbot overlay</td></tr>
         </table>
@@ -419,7 +629,7 @@
       <ul class="items">
         <li>Props table now includes <code>title</code>, <code>subtitle</code>, <code>placeholder</code>, <code>onSearch</code></li>
         <li>New "What users can ask" section — full reference of every supported query type</li>
-        <li>Generic product types documented with typed examples</li>
+        <li>Generic product types documented with typed examples for watch, ecommerce, and simple products</li>
         <li>Guidance on when to use <code>products</code> vs <code>productsUrl</code> vs <code>onSearch</code></li>
       </ul>
     </div>
