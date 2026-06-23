@@ -12,80 +12,69 @@
     code { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
     pre  { background: #1e293b; color: #e2e8f0; border-radius: 10px; padding: 18px 20px; font-size: 13px; line-height: 1.7; overflow-x: auto; }
     .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin: 0 0 20px; }
-
     .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 6px; }
-    .chip {
-      display: inline-block; background: #fff;
-      border: 1.5px solid #0d9488; color: #0d9488;
-      border-radius: 99px; padding: 5px 13px; font-size: 13px; font-family: inherit;
-    }
+    .chip { display: inline-block; background: #fff; border: 1.5px solid #0d9488; color: #0d9488; border-radius: 99px; padding: 5px 13px; font-size: 13px; font-family: inherit; }
     .note { font-size: 12px; color: #9ca3af; margin: 0; }
   </style>
 </head>
 <body>
 
   <h1>Products — inline array</h1>
-  <p>Pass products directly inside <code>ChatbotWidget.init()</code>. Good when the data is small or already available in your page.</p>
+  <p>Pass products directly in <code>ChatbotWidget.init()</code>. Best for small catalogs already available in your page.</p>
 
   <div class="tip">
-    <strong>Try asking:</strong> "what products do you have?" &nbsp;·&nbsp;
-    "tell me about the headphones" &nbsp;·&nbsp; "what's in stock?" &nbsp;·&nbsp;
-    "show prices" &nbsp;·&nbsp; "cheapest option" &nbsp;·&nbsp; "show electronics"
+    <strong>Try asking:</strong> "rolex" &nbsp;·&nbsp; "omega" &nbsp;·&nbsp;
+    "ref=116610LN" &nbsp;·&nbsp; "blue dial" &nbsp;·&nbsp;
+    "under 10k" &nbsp;·&nbsp; "between 5k and 20k" &nbsp;·&nbsp;
+    "what's in stock?" — then "the second one" as a follow-up
   </div>
 
-  <!-- ── Suggestions ─────────────────────────────────────────────────── -->
   <h2>Auto-generated suggestion chips</h2>
   <p>
-    Because products are passed inline, the widget immediately builds product-aware chips for
-    the welcome message. After each reply you also get context-specific follow-up chips.
+    Products passed inline are available immediately — the widget builds product-aware chips
+    for the welcome message without any extra config.
   </p>
   <div class="chip-row">
     <span class="chip">What products do you have?</span>
     <span class="chip">What's in stock?</span>
     <span class="chip">Show me prices</span>
-    <span class="chip">Tell me about Wireless Headphones</span>
+    <span class="chip">Tell me about Rolex, Submariner Date, 116610LN, 2019, Steel</span>
   </div>
-  <p class="note">These are generated automatically — no extra config needed.</p>
+  <p class="note">Generated automatically from your products array — no extra configuration needed.</p>
 
   <h2>Custom suggestions example</h2>
   <pre>&lt;script&gt;
   ChatbotWidget.init({
     products: [ /* your catalog */ ],
     suggestions: [
-      "What products do you have?",
-      "What's your cheapest product?",
-      "Show Electronics",
-      "What's out of stock?",
+      "Search Rolex",
+      "What's your cheapest watch?",
+      "Show in-stock items",
+      "Search by ref number",
     ],
   });
 &lt;/script&gt;</pre>
 
-  <!-- Widget script -->
   <script src="./chatbot-widget.iife.js"></script>
   <script>
     ChatbotWidget.init({
-      title:          'Shop Assistant',
-      subtitle:       'Ask me about our products',
+      title:          'Watch Support',
+      subtitle:       'Search our inventory',
       primaryColor:   '#0d9488',
-      welcomeMessage: 'Hi! Ask me anything about our products.',
+      welcomeMessage: 'Hi! Search by brand, model, ref or any detail.',
       position:       'bottom-right',
-
-      // Products — edit this array to match your own catalog
       products: [
-        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true  },
-        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL',     price: 89.99,  category: 'Electronics', inStock: true  },
-        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
-        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',      price: 34.99,  category: 'Furniture',    inStock: true  },
+        { id: '48291', name: 'Rolex, Submariner Date, 116610LN, 2019, Steel', price: 12850, model: 'Submariner Date', reg: '116610LN', case: '40mm Oystersteel', metal: 'Steel', dial: 'Black', description: 'Excellent condition. Full set with box and papers.', inStock: true },
+        { id: '48302', name: 'Omega, Seamaster 300M, 210.30.42.20.01.001, 2021, Steel', price: 5200, model: 'Seamaster 300M', reg: '210.30.42.20.01.001', case: '42mm Steel', metal: 'Steel', dial: 'Blue', inStock: true },
+        { id: '48315', name: 'Rolex, Daytona, 116500LN, 2020, Steel', price: 38500, model: 'Daytona', reg: '116500LN', case: '40mm Oystersteel', metal: 'Steel', dial: 'White', description: 'Mint condition. Original bracelet and full set.', inStock: true },
+        { id: '48327', name: 'Patek Philippe, Nautilus, 5711/1A-010, 2018, Steel', price: 95000, model: 'Nautilus', reg: '5711/1A-010', case: '40mm Steel', metal: 'Steel', dial: 'Blue', description: 'Complete set, excellent condition.', inStock: true },
+        { id: '48338', name: 'Audemars Piguet, Royal Oak, 15400ST, 2017, Steel', price: 42000, model: 'Royal Oak', reg: '15400ST', case: '41mm Steel', metal: 'Steel', dial: 'Blue', inStock: true },
+        { id: '48349', name: 'Rolex, GMT-Master II, 126710BLNR, 2022, Steel', price: 16500, model: 'GMT-Master II', reg: '126710BLNR', case: '40mm Oystersteel', metal: 'Steel', dial: 'Black', description: 'Batman bezel. Unworn condition with full set.', inStock: true },
+        { id: '48356', name: 'Omega, Speedmaster Professional, 310.30.42.50.01.001, 2020, Steel', price: 6800, model: 'Speedmaster Professional', reg: '310.30.42.50.01.001', case: '42mm Steel', metal: 'Steel', dial: 'Black', description: 'Moonwatch. Full set. Currently being serviced.', inStock: false },
+        { id: '48362', name: 'IWC, Portugieser Chronograph, IW371605, 2019, Steel', price: 7200, model: 'Portugieser Chronograph', reg: 'IW371605', case: '41mm Steel', metal: 'Steel', dial: 'Silver', inStock: true },
+        { id: '48374', name: 'Cartier, Santos Large, WSSA0018, 2021, Steel', price: 8500, model: 'Santos Large', reg: 'WSSA0018', case: '39.8mm Steel', metal: 'Steel', dial: 'Silver', description: 'Interchangeable strap model. Box and papers.', inStock: true },
+        { id: '48381', name: 'Rolex, Datejust 41, 126334, 2023, Steel', price: 9800, model: 'Datejust 41', reg: '126334', case: '41mm Oystersteel', metal: 'Steel', dial: 'Blue Motif', description: 'Brand new, unworn. Full set.', inStock: true },
       ],
-
-      // Suggestions are auto-generated from products above.
-      // Uncomment to override with your own chips:
-      // suggestions: [
-      //   "What products do you have?",
-      //   "What's your cheapest product?",
-      //   "Show Electronics",
-      //   "What's out of stock?",
-      // ],
     });
   </script>
 

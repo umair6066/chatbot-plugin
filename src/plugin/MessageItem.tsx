@@ -1,4 +1,4 @@
-import type { Message } from './types';
+import type { Message, Product } from './types';
 
 interface Props {
   message: Message;
@@ -22,6 +22,14 @@ export function MessageItem({ message, onSuggestionClick }: Props) {
           <span className="cbw-bubble-time">{time}</span>
         </div>
 
+        {isBot && message.products && message.products.length > 0 && (
+          <div className="cbw-product-cards">
+            {message.products.map((p, i) => (
+              <ProductCard key={p.id ?? `${p.name}-${i}`} product={p} />
+            ))}
+          </div>
+        )}
+
         {isBot && message.suggestions && message.suggestions.length > 0 && (
           <div className="cbw-suggestions" role="list">
             {message.suggestions.map(s => (
@@ -39,6 +47,73 @@ export function MessageItem({ message, onSuggestionClick }: Props) {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+const CARD_FIELDS: Array<[string, string]> = [
+  ['Model',  'model'],
+  ['Reg',    'reg'],
+  ['Case',   'case'],
+  ['Metal',  'metal'],
+  ['Serial', 'serial'],
+  ['Year',   'year'],
+  ['Dial',   'dial'],
+  ['Status', 'status'],
+];
+
+const KNOWN_KEYS = new Set([
+  'id', 'name', 'description', 'price', 'inStock',
+  'model', 'reg', 'case', 'metal', 'serial', 'year', 'dial', 'status', 'category',
+]);
+
+function fmtPrice(price: number | string): string {
+  return typeof price === 'number' ? `$${price.toLocaleString()}` : price;
+}
+
+function ProductCard({ product: p }: { product: Product }) {
+  const extraFields = Object.entries(p).filter(
+    ([key, val]) => !KNOWN_KEYS.has(key) && val !== undefined && val !== null,
+  );
+
+  return (
+    <div className="cbw-product-card">
+      <p className="cbw-product-card-name">{p.name}</p>
+
+      {p.price !== undefined && (
+        <div className="cbw-product-card-field">
+          <span className="cbw-product-card-label">Price</span>
+          <span className="cbw-product-card-value cbw-product-card-price">{fmtPrice(p.price)}</span>
+        </div>
+      )}
+
+      {CARD_FIELDS.map(([label, key]) => {
+        const val = p[key];
+        if (val === undefined || val === null || val === '') return null;
+        return (
+          <div key={key} className="cbw-product-card-field">
+            <span className="cbw-product-card-label">{label}</span>
+            <span className="cbw-product-card-value">{String(val)}</span>
+          </div>
+        );
+      })}
+
+      {extraFields.map(([key, val]) => (
+        <div key={key} className="cbw-product-card-field">
+          <span className="cbw-product-card-label">{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+          <span className="cbw-product-card-value">{String(val)}</span>
+        </div>
+      ))}
+
+      {p.description && (
+        <p className="cbw-product-card-desc">{String(p.description)}</p>
+      )}
+
+      {p.inStock !== undefined && (
+        <p className={`cbw-product-card-stock ${p.inStock ? 'cbw-product-card-stock--in' : 'cbw-product-card-stock--out'}`}>
+          {p.inStock ? 'In stock ✓' : 'Out of stock ✗'}
+        </p>
+      )}
     </div>
   );
 }

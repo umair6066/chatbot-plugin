@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>onSearch API — ChatbotWidget Sample</title>
+  <style>
+    body  { font-family: system-ui, sans-serif; max-width: 680px; margin: 60px auto; padding: 0 24px; color: #374151; }
+    h1   { font-size: 26px; color: #111827; margin: 0 0 8px; }
+    h2   { font-size: 16px; color: #111827; margin: 32px 0 10px; }
+    p    { line-height: 1.65; margin: 0 0 12px; }
+    code { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
+    pre  { background: #1e293b; color: #e2e8f0; border-radius: 10px; padding: 18px 20px; font-size: 13px; line-height: 1.7; overflow-x: auto; }
+    .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin: 0 0 20px; }
+    .warn { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin: 0 0 20px; }
+    .log  { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; font-family: monospace; font-size: 12px; color: #475569; max-height: 140px; overflow-y: auto; margin: 0 0 20px; }
+    .log p { margin: 0; line-height: 1.8; }
+  </style>
+</head>
+<body>
+
+  <h1>onSearch — API-backed search</h1>
+  <p>
+    For large catalogs, pass an <code>onSearch</code> callback instead of loading all products upfront.
+    The widget calls it for every non-greeting message and shows the returned products as cards.
+  </p>
+
+  <div class="warn">
+    ⚠ <strong>This demo simulates an API</strong> with a local dataset and a 400 ms artificial delay.
+    In production, replace the body of <code>onSearch</code> with a real <code>fetch()</code> call.
+  </div>
+
+  <div class="tip">
+    <strong>Try typing:</strong> "rolex" &nbsp;·&nbsp; "blue dial" &nbsp;·&nbsp;
+    "ref=116610LN" &nbsp;·&nbsp; "omega seamaster" &nbsp;·&nbsp;
+    "under 10k" &nbsp;·&nbsp; "between 5k and 20k" &nbsp;·&nbsp;
+    then "the second one" as a follow-up
+  </div>
+
+  <h2>API call log</h2>
+  <div class="log" id="log"><p>— waiting for first search —</p></div>
+
+  <h2>Real-world usage</h2>
+  <pre>ChatbotWidget.init({
+  onSearch: async (query) => {
+    const res = await fetch(
+      `/admin/products?search=${encodeURIComponent(query)}`
+      + `&status=Purchased/InStock,Consignment,Working On`
+      + `&per_page=5&page=1`
+    );
+    const data = await res.json();
+    return data.data.products.map(mapProduct); // your mapping fn
+  },
+  suggestions: [
+    "Search Rolex",
+    "What's in stock?",
+    "Search by ref number",
+    "Show me prices",
+  ],
+});</pre>
+
+  <h2>How it works</h2>
+  <p>
+    <code>onSearch</code> is called for every non-greeting message.
+    Greetings ("hi", "thanks", etc.) are handled locally — no API call is made.
+    Results are capped at <strong>5 cards</strong> per reply regardless of how many your API returns.
+    The widget still applies local intent handling (cheapest, prices, stock) on whatever
+    your callback returns, so those intents keep working with API-sourced products.
+  </p>
+
+  <script src="./chatbot-widget.iife.js"></script>
+  <script>
+    // Full catalog — simulates your backend database
+    var CATALOG = [
+      { id: '48291', name: 'Rolex, Submariner Date, 116610LN, 2019, Steel', price: 12850, model: 'Submariner Date', reg: '116610LN', serial: 'R9K2XXXX', case: '40mm Oystersteel', metal: 'Steel', dial: 'Black', status: 'Purchased/InStock', description: 'Excellent condition. Full set with box and papers.', inStock: true },
+      { id: '48302', name: 'Omega, Seamaster 300M, 210.30.42.20.01.001, 2021, Steel', price: 5200, model: 'Seamaster 300M', reg: '210.30.42.20.01.001', serial: 'OM42XXXX', case: '42mm Steel', metal: 'Steel', dial: 'Blue', status: 'Consignment', inStock: true },
+      { id: '48315', name: 'Rolex, Daytona, 116500LN, 2020, Steel', price: 38500, model: 'Daytona', reg: '116500LN', serial: 'DY20XXXX', case: '40mm Oystersteel', metal: 'Steel', dial: 'White', status: 'Purchased/InStock', description: 'Mint condition. Original bracelet and full set.', inStock: true },
+      { id: '48327', name: 'Patek Philippe, Nautilus, 5711/1A-010, 2018, Steel', price: 95000, model: 'Nautilus', reg: '5711/1A-010', serial: 'PP18XXXX', case: '40mm Steel', metal: 'Steel', dial: 'Blue', status: 'Purchased/InStock', description: 'Complete set, excellent condition.', inStock: true },
+      { id: '48338', name: 'Audemars Piguet, Royal Oak, 15400ST, 2017, Steel', price: 42000, model: 'Royal Oak', reg: '15400ST', serial: 'AP17XXXX', case: '41mm Steel', metal: 'Steel', dial: 'Blue', status: 'Consignment', inStock: true },
+      { id: '48349', name: 'Rolex, GMT-Master II, 126710BLNR, 2022, Steel', price: 16500, model: 'GMT-Master II', reg: '126710BLNR', serial: 'GM22XXXX', case: '40mm Oystersteel', metal: 'Steel', dial: 'Black', status: 'Purchased/InStock', description: 'Batman bezel. Unworn condition with full set.', inStock: true },
+      { id: '48356', name: 'Omega, Speedmaster Professional, 310.30.42.50.01.001, 2020, Steel', price: 6800, model: 'Speedmaster Professional', reg: '310.30.42.50.01.001', serial: 'SP20XXXX', case: '42mm Steel', metal: 'Steel', dial: 'Black', status: 'Working On', description: 'Moonwatch. Full set. Currently being serviced.', inStock: false },
+      { id: '48362', name: 'IWC, Portugieser Chronograph, IW371605, 2019, Steel', price: 7200, model: 'Portugieser Chronograph', reg: 'IW371605', serial: 'IW19XXXX', case: '41mm Steel', metal: 'Steel', dial: 'Silver', status: 'Consignment', inStock: true },
+      { id: '48374', name: 'Cartier, Santos Large, WSSA0018, 2021, Steel', price: 8500, model: 'Santos Large', reg: 'WSSA0018', serial: 'CT21XXXX', case: '39.8mm Steel', metal: 'Steel', dial: 'Silver', status: 'Purchased/InStock', description: 'Interchangeable strap model. Box and papers.', inStock: true },
+      { id: '48381', name: 'Rolex, Datejust 41, 126334, 2023, Steel', price: 9800, model: 'Datejust 41', reg: '126334', serial: 'DJ23XXXX', case: '41mm Oystersteel', metal: 'Steel', dial: 'Blue Motif', status: 'Purchased/InStock', description: 'Brand new, unworn. Full set.', inStock: true },
+    ];
+
+    var logEl = document.getElementById('log');
+    function addLog(msg) {
+      var p = document.createElement('p');
+      p.textContent = new Date().toLocaleTimeString() + '  ' + msg;
+      if (logEl.firstChild && logEl.firstChild.textContent === '— waiting for first search —') {
+        logEl.innerHTML = '';
+      }
+      logEl.appendChild(p);
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    // Simulated API — replace with real fetch() in production
+    function simulateApiSearch(query) {
+      return new Promise(function(resolve) {
+        setTimeout(function() {
+          var q = query.toLowerCase();
+          // Strip key=value prefixes (ref=X → X)
+          q = q.replace(/\b(?:ref|serial|id|model|metal|case|reg)=(\S+)/gi, '$1').trim();
+          var terms = q.split(/\s+/).filter(function(t) { return t.length > 1; });
+          var results = CATALOG.filter(function(p) {
+            var text = JSON.stringify(p).toLowerCase();
+            return terms.every(function(t) { return text.includes(t); });
+          });
+          addLog('GET /admin/products?search="' + query + '" → ' + results.length + ' result(s)');
+          resolve(results);
+        }, 400); // simulate 400 ms network latency
+      });
+    }
+
+    ChatbotWidget.init({
+      title:          'Watch Support',
+      subtitle:       'API-backed search demo',
+      primaryColor:   '#0f766e',
+      welcomeMessage: 'Hi! 👋 Type anything — search is powered by the API.',
+      position:       'bottom-right',
+      suggestions: [
+        'Search Rolex',
+        "What's in stock?",
+        'Search by ref number',
+        'Show me prices',
+      ],
+      onSearch: function(query) {
+        return simulateApiSearch(query);
+      },
+    });
+  </script>
+
+</body>
+</html>

@@ -11,20 +11,9 @@
     p    { line-height: 1.65; margin: 0 0 12px; }
     code { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
     pre  { background: #1e293b; color: #e2e8f0; border-radius: 10px; padding: 18px 20px; font-size: 13px; line-height: 1.7; overflow-x: auto; }
-    .tip  { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin: 0 0 20px; }
-
-    /* suggestion chip preview */
+    .tip { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; font-size: 14px; margin: 0 0 20px; }
     .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 6px; }
-    .chip {
-      display: inline-block;
-      background: #fff;
-      border: 1.5px solid #6366f1;
-      color: #6366f1;
-      border-radius: 99px;
-      padding: 5px 13px;
-      font-size: 13px;
-      font-family: inherit;
-    }
+    .chip { display: inline-block; background: #fff; border: 1.5px solid #6366f1; color: #6366f1; border-radius: 99px; padding: 5px 13px; font-size: 13px; font-family: inherit; }
     .note { font-size: 12px; color: #9ca3af; margin: 0; }
   </style>
 </head>
@@ -34,19 +23,18 @@
   <p>The chat button appears in the bottom-right corner. Click it to open the widget.</p>
 
   <div class="tip">
-    <strong>Try typing:</strong> "what products do you have?" &nbsp;·&nbsp;
-    "tell me about the headphones" &nbsp;·&nbsp; "what's cheapest?" &nbsp;·&nbsp;
-    "wireles headfone" <em>(typo — it still matches!)</em>
+    <strong>Try typing:</strong> "what do you have?" &nbsp;·&nbsp;
+    "rolex" &nbsp;·&nbsp; "ref=116610LN" &nbsp;·&nbsp; "under 10k" &nbsp;·&nbsp;
+    "blue dial" &nbsp;·&nbsp; "cheapest" &nbsp;·&nbsp;
+    then "the second one" as a follow-up
   </div>
 
-  <!-- ── How suggestions work ────────────────────────────────────────── -->
   <h2>Smart suggestion chips</h2>
   <p>
     The widget shows clickable chips below each bot reply. The welcome message
     always has quick-start chips. If the bot doesn't understand a query it shows
     fallback chips so users always know what to ask next.
   </p>
-
   <div class="chip-row">
     <span class="chip">What products do you have?</span>
     <span class="chip">What's in stock?</span>
@@ -56,38 +44,38 @@
   <p class="note">Chips on older messages grey out — only the latest reply has active chips.</p>
 
   <h2>Custom welcome suggestions</h2>
-  <p>Pass a <code>suggestions</code> array to replace the auto-generated chips:</p>
   <pre>&lt;script src="./chatbot-widget.iife.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   ChatbotWidget.init({
-    title: "Support Chat",
-    welcomeMessage: "Hi there! 👋 How can I help?",
+    title: "Watch Support",
     suggestions: [
-      "What products do you have?",
-      "What's your return policy?",
-      "Do you ship internationally?",
-      "Talk to a human",
+      "What watches do you have?",
+      "Search by ref number",
+      "What's in stock?",
+      "Show me prices",
     ],
   });
 &lt;/script&gt;</pre>
 
-  <p>If <code>suggestions</code> is omitted the widget auto-generates chips from your product catalog.</p>
-
-  <!-- Widget script -->
   <script src="./chatbot-widget.iife.js"></script>
   <script>
     ChatbotWidget.init({
-      title: 'Support Chat',
-      subtitle: 'Typically replies instantly',
-      primaryColor: '#6366f1',
-      welcomeMessage: 'Hi there! 👋 How can I help you today?',
-      position: 'bottom-right',
-      // No suggestions passed — auto-generated from products below
+      title:          'Watch Support',
+      subtitle:       'Search our inventory',
+      primaryColor:   '#6366f1',
+      welcomeMessage: 'Hi there! 👋 Search by brand, model, ref number or any detail.',
+      position:       'bottom-right',
       products: [
-        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true  },
-        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL',     price: 89.99,  category: 'Electronics', inStock: true  },
-        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm', price: 599.00, category: 'Furniture',    inStock: false },
-        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',      price: 34.99,  category: 'Furniture',    inStock: true  },
+        { id: '48291', name: 'Rolex, Submariner Date, 116610LN, 2019, Steel', price: 12850, model: 'Submariner Date', reg: '116610LN', case: '40mm Oystersteel', metal: 'Steel', dial: 'Black', description: 'Excellent condition. Full set with box and papers.', inStock: true },
+        { id: '48302', name: 'Omega, Seamaster 300M, 210.30.42.20.01.001, 2021, Steel', price: 5200, model: 'Seamaster 300M', reg: '210.30.42.20.01.001', case: '42mm Steel', metal: 'Steel', dial: 'Blue', inStock: true },
+        { id: '48315', name: 'Rolex, Daytona, 116500LN, 2020, Steel', price: 38500, model: 'Daytona', reg: '116500LN', case: '40mm Oystersteel', metal: 'Steel', dial: 'White', description: 'Mint condition. Original bracelet and full set.', inStock: true },
+        { id: '48327', name: 'Patek Philippe, Nautilus, 5711/1A-010, 2018, Steel', price: 95000, model: 'Nautilus', reg: '5711/1A-010', case: '40mm Steel', metal: 'Steel', dial: 'Blue', description: 'Complete set, excellent condition.', inStock: true },
+        { id: '48338', name: 'Audemars Piguet, Royal Oak, 15400ST, 2017, Steel', price: 42000, model: 'Royal Oak', reg: '15400ST', case: '41mm Steel', metal: 'Steel', dial: 'Blue', inStock: true },
+        { id: '48349', name: 'Rolex, GMT-Master II, 126710BLNR, 2022, Steel', price: 16500, model: 'GMT-Master II', reg: '126710BLNR', case: '40mm Oystersteel', metal: 'Steel', dial: 'Black', description: 'Batman bezel. Unworn condition with full set.', inStock: true },
+        { id: '48356', name: 'Omega, Speedmaster Professional, 310.30.42.50.01.001, 2020, Steel', price: 6800, model: 'Speedmaster Professional', reg: '310.30.42.50.01.001', case: '42mm Steel', metal: 'Steel', dial: 'Black', description: 'Moonwatch. Full set. Currently being serviced.', inStock: false },
+        { id: '48362', name: 'IWC, Portugieser Chronograph, IW371605, 2019, Steel', price: 7200, model: 'Portugieser Chronograph', reg: 'IW371605', case: '41mm Steel', metal: 'Steel', dial: 'Silver', inStock: true },
+        { id: '48374', name: 'Cartier, Santos Large, WSSA0018, 2021, Steel', price: 8500, model: 'Santos Large', reg: 'WSSA0018', case: '39.8mm Steel', metal: 'Steel', dial: 'Silver', description: 'Interchangeable strap model. Box and papers.', inStock: true },
+        { id: '48381', name: 'Rolex, Datejust 41, 126334, 2023, Steel', price: 9800, model: 'Datejust 41', reg: '126334', case: '41mm Oystersteel', metal: 'Steel', dial: 'Blue Motif', description: 'Brand new, unworn. Full set.', inStock: true },
       ],
     });
   </script>

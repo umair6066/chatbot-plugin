@@ -16,6 +16,7 @@ export function ChatbotWidget({
   products: inlineProducts = [],
   productsUrl,
   suggestions,
+  onSearch,
   ...config
 }: ChatbotWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,7 @@ export function ChatbotWidget({
       .catch(err => console.warn('[ChatbotWidget]', err.message));
   }, [productsUrl]);
 
-  const { messages, isTyping, sendMessage } = useChatbot(welcomeMessage, products, suggestions);
+  const { messages, isTyping, sendMessage } = useChatbot(welcomeMessage, products, suggestions, onSearch);
 
   return (
     <div

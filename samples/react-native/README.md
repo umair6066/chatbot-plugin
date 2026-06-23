@@ -39,11 +39,13 @@ https://cdn.jsdelivr.net/gh/umair6066/chatbot-plugin@main/dist-widget/chatbot-wi
 
 ## Native tab
 
-A fully native chat UI that mirrors the web widget experience:
+A fully native chat UI built with React Native components. Supports the same query patterns as the web widget:
 
-- **Greeting + suggestion chips** — same quick-reply prompts as the web widget
-- **Product-aware responses** — understands queries about products, prices, and stock from the same `products.json` dataset
-- **Keyboard-safe input** — `KeyboardAvoidingView` keeps the text field visible when the keyboard opens
+- **All-fields search** — "rolex", "blue dial", "ref=116610LN" all work
+- **Price range** — "under 10k", "between 5k and 20k", "over 50k"
+- **Browse intents** — "what do you have?", "what's in stock?", "show me prices", "cheapest", "most expensive"
+- **Context-aware suggestion chips** — chips update after every reply, older ones grey out
+- **Keyboard-safe input** — `KeyboardAvoidingView` keeps the text field visible
 - **Auto-scroll** — message list scrolls to the latest message automatically
 
 ## Project structure

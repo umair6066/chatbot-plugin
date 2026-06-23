@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Basic — ChatbotWidget Sample</title>
+  <title>Test — ChatbotWidget</title>
   <style>
     body { font-family: system-ui, sans-serif; max-width: 640px; margin: 80px auto; padding: 0 24px; color: #374151; }
     h1   { font-size: 28px; color: #111827; margin: 0 0 12px; }
@@ -12,26 +12,32 @@
 </head>
 <body>
 
-  <h1>Basic setup</h1>
-  <p>The chat button appears in the bottom-right corner. Click it to open.</p>
-  <p>Minimum configuration — just a title and a welcome message.</p>
+  <h1>Widget test</h1>
+  <p>Minimum configuration. Chat button in the bottom-right corner.</p>
+  <p>Try: "rolex" · "blue dial" · "under 10k" · "between 5k and 20k" · "cheapest" · "what's in stock?" · then "the second one"</p>
 
-  <!-- Widget script — bundled locally so this file works anywhere, offline too -->
   <script src="./chatbot-widget.iife.js"></script>
-<script>
-  ChatbotWidget.init({
-    title: "Chat Support",
-    subtitle: "Typically replies instantly",
-    primaryColor: "#6366f1",
-    welcomeMessage: "Hi there! 👋 How can I help?",
-    position: "bottom-right",
- products: [
-        { name: 'Wireless Headphones', description: 'Premium noise-cancelling, 30h battery', price: 149.99, category: 'Electronics', inStock: true },
-        { name: 'Mechanical Keyboard', description: 'Tactile switches, RGB backlit, TKL layout', price: 89.99, category: 'Electronics', inStock: true },
-        { name: 'Standing Desk',       description: 'Motorised height-adjustable, 120×60 cm',   price: 599.00, category: 'Furniture',    inStock: false },
-        { name: 'Desk Lamp',           description: 'LED, adjustable colour temperature',         price: 34.99,  category: 'Furniture',    inStock: true },
-      ],  });
-</script>
+  <script>
+    ChatbotWidget.init({
+      title:          'Chat Support',
+      subtitle:       'Search our inventory',
+      primaryColor:   '#0f766e',
+      welcomeMessage: 'Hi there! 👋 How can I help you today?',
+      position:       'bottom-right',
+      products: [
+        { id: '48291', name: 'Rolex, Submariner Date, 116610LN, 2019, Steel', price: 12850, model: 'Submariner Date', reg: '116610LN', case: '40mm Oystersteel', metal: 'Steel', dial: 'Black', description: 'Excellent condition. Full set with box and papers.', inStock: true },
+        { id: '48302', name: 'Omega, Seamaster 300M, 210.30.42.20.01.001, 2021, Steel', price: 5200, model: 'Seamaster 300M', reg: '210.30.42.20.01.001', case: '42mm Steel', metal: 'Steel', dial: 'Blue', inStock: true },
+        { id: '48315', name: 'Rolex, Daytona, 116500LN, 2020, Steel', price: 38500, model: 'Daytona', reg: '116500LN', case: '40mm Oystersteel', metal: 'Steel', dial: 'White', description: 'Mint condition. Original bracelet and full set.', inStock: true },
+        { id: '48327', name: 'Patek Philippe, Nautilus, 5711/1A-010, 2018, Steel', price: 95000, model: 'Nautilus', reg: '5711/1A-010', case: '40mm Steel', metal: 'Steel', dial: 'Blue', description: 'Complete set, excellent condition.', inStock: true },
+        { id: '48338', name: 'Audemars Piguet, Royal Oak, 15400ST, 2017, Steel', price: 42000, model: 'Royal Oak', reg: '15400ST', case: '41mm Steel', metal: 'Steel', dial: 'Blue', inStock: true },
+        { id: '48349', name: 'Rolex, GMT-Master II, 126710BLNR, 2022, Steel', price: 16500, model: 'GMT-Master II', reg: '126710BLNR', case: '40mm Oystersteel', metal: 'Steel', dial: 'Black', description: 'Batman bezel. Unworn condition with full set.', inStock: true },
+        { id: '48356', name: 'Omega, Speedmaster Professional, 310.30.42.50.01.001, 2020, Steel', price: 6800, model: 'Speedmaster Professional', reg: '310.30.42.50.01.001', case: '42mm Steel', metal: 'Steel', dial: 'Black', inStock: false },
+        { id: '48362', name: 'IWC, Portugieser Chronograph, IW371605, 2019, Steel', price: 7200, model: 'Portugieser Chronograph', reg: 'IW371605', case: '41mm Steel', metal: 'Steel', dial: 'Silver', inStock: true },
+        { id: '48374', name: 'Cartier, Santos Large, WSSA0018, 2021, Steel', price: 8500, model: 'Santos Large', reg: 'WSSA0018', case: '39.8mm Steel', metal: 'Steel', dial: 'Silver', inStock: true },
+        { id: '48381', name: 'Rolex, Datejust 41, 126334, 2023, Steel', price: 9800, model: 'Datejust 41', reg: '126334', case: '41mm Oystersteel', metal: 'Steel', dial: 'Blue Motif', description: 'Brand new, unworn. Full set.', inStock: true },
+      ],
+    });
+  </script>
 
 </body>
 </html>
