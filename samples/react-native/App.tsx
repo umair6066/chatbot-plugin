@@ -16,11 +16,17 @@ import { WebView } from 'react-native-webview';
 // WebView tab — uses the full web widget from CDN (all features included)
 // ---------------------------------------------------------------------------
 
+// Bump this version string after every `npm run build:widget` + push
+// so the WebView bypasses its HTTP cache and fetches the latest bundle.
+const WIDGET_VERSION = '1bd7826';
+
+const CDN = `https://cdn.jsdelivr.net/gh/umair6066/chatbot-plugin@main/dist-widget`;
+
 const WEBVIEW_HTML = `
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/gh/umair6066/chatbot-plugin@main/dist-widget/chatbot-widget.iife.js"></script>
+    <script src="${CDN}/chatbot-widget.iife.js?v=${WIDGET_VERSION}"></script>
   </head>
   <body style="margin: 0; padding: 0;">
     <script>
@@ -29,7 +35,7 @@ const WEBVIEW_HTML = `
         subtitle: 'Search our inventory',
         position: 'bottom-right',
         primaryColor: '#6366f1',
-        productsUrl: 'https://cdn.jsdelivr.net/gh/umair6066/chatbot-plugin@main/dist-widget/products.json'
+        productsUrl: '${CDN}/products.json?v=${WIDGET_VERSION}'
       });
     </script>
   </body>
